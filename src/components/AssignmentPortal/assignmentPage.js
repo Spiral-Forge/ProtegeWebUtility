@@ -48,7 +48,7 @@ export default class AssignmentPage extends Component {
   }
   getMentorList=async ()=>{
     // console.log("im printing")
-    db.collection("Users").where('post', '==', "Mentee").get()
+    db.collection("Users").where('post', '==', "Mentor").get()
     .then(querySnapshot => {
       var mydata= querySnapshot.docs.map(a => {
         // console.log("a is ")
@@ -61,8 +61,35 @@ export default class AssignmentPage extends Component {
       });
    }
 
-   saveAssignment=(mentor)=>{
-      db.collection("Users")
+   saveAssignment=async (mentor)=>{
+     //console.log(mentor)
+     //console.log(this.state.selectedMentee)
+     //var currentMenteeWithoutID= 
+      // console.log(mentor.id)
+      // console.log(this.state.selectedMentee)
+      var menteePeerIDCopy=this.state.selectedMentee.peerID.slice()
+      menteePeerIDCopy.push(mentor.id)
+      //console.log(peerIDCopy)
+      const currentMenteeWithoutID = (({ id, ...o }) => o)(this.state.selectedMentee)
+      var menteeObj={...currentMenteeWithoutID,peerID:menteePeerIDCopy}
+      // console.log(objtobeset)
+      await db.collection("Users").doc(this.state.selectedMentee.id)
+      .set(menteeObj);
+      var mentorPeerIDCopy=mentor.peerID.slice()
+      mentorPeerIDCopy.push(this.state.selectedMentee.id)
+      const currentMentorWithoutID = (({ id, ...o }) => o)(mentor)
+      var mentorObj={...currentMentorWithoutID,peerID:mentorPeerIDCopy}
+      //console.log(mentor)
+      await db.collection("Users").doc(mentor.id)
+      .set(mentorObj);
+      await this.getMenteeList()
+      await this.getMentorList()
+      this.setState({
+        menteeProfileOpened:false,
+        mentorQueryFired:false,
+        mentorProfileOpened:false,
+      })
+
    }
 
   openMenteeProfile=(item)=>{
@@ -81,7 +108,7 @@ export default class AssignmentPage extends Component {
     console.log(this.state)
     var menteeListDiv= this.state.menteeProfileOpened ?    <MenteeProfile findMentors={this.findMentors} user={this.state.selectedMentee}/>  : <EmptyDiv/>;
     var mentorMatchesDiv= this.state.mentorQueryFired ?    <MentorMatches mentorList={this.state.mentorList} openMentorProfile={this.openMentorProfile}/>  : <EmptyDiv/>;
-    var mentorProfileDiv= this.state.mentorProfileOpened ?    <MentorProfile user={this.state.selectedMentor}/>  : <EmptyDiv/>;
+    var mentorProfileDiv= this.state.mentorProfileOpened ?    <MentorProfile user={this.state.selectedMentor} saveAssignment={this.saveAssignment}/>  : <EmptyDiv/>;
     return (
         <div style={{width:"100%",height:"100vh",backgroundColor:"green",display:"inline-block"}}>
             <MenteeList menteeList={this.state.menteeList} openMenteeProfile={this.openMenteeProfile}/>

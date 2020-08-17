@@ -11,7 +11,7 @@ export default class MentorProfile extends Component {
                 <li>{this.props.user.year}</li>
                 <li>{this.props.user.domains}</li>
             </ul>
-            <button>Assign</button>
+            <button onClick={()=>this.props.saveAssignment(this.props.user)}>Assign</button>
          </div>
     );
   }
