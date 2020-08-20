@@ -115,10 +115,7 @@ export default class AssignmentPage extends Component {
             {menteeListDiv}
             {mentorMatchesDiv}
             {mentorProfileDiv}
-      {/* <div style={{backgroundColor:"grey",display:"inline-block",height:"100vh",width:"25%"}}> textInComponent </div>
-      <div style={{backgroundColor:"lightblue",display:"inline-block",height:"100vh",width:"25%"}}> div2 </div>
-      <div style={{backgroundColor:"grey",display:"inline-block",height:"100vh",width:"25%"}}> textsasInComponent </div>
-      <div style={{backgroundColor:"lightblue",display:"inline-block",height:"100vh",width:"25%"}}> textInCasfghomponent </div> */}
+      
       </div>
     );
   }
