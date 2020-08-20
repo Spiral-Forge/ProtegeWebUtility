@@ -32,12 +32,13 @@ export default class ResourceAdd extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor:"grey",display:"inline-block",height:"100vh",width:"50%"}}> 
+      <div style={{backgroundColor:"#a3d2ca",display:"inline-block",width:"50%",textAlign:"center"}}> 
+      <div style={{padding:"35px"}}>
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="name">Title:</label><br />
-        <input type="text" id="name" name="Title" value={this.state.Title} onChange={this.handleChange}/><br />
+        <input class="form-control" type="text" id="name" name="Title" value={this.state.Title} onChange={this.handleChange}/><br />
         <label htmlFor="name">Link:</label><br />
-        <input type="text" id="name" name="Link" value={this.state.Link} onChange={this.handleChange}/><br />
+        <input class="form-control" type="text" id="name" name="Link" value={this.state.Link} onChange={this.handleChange}/><br />
         <p>Select domain: </p><br></br>
         <input type="radio" id="male" name="domain" value="Development" checked={this.state.selectedDomain === "Development"} onChange={this.handleOptionChange} />
         <label for="male">Development</label><br />
@@ -53,6 +54,7 @@ export default class ResourceAdd extends Component {
         <label for="other">Open Source</label><br />
         <input type="submit" value="Submit"/>
         </form>
+        </div>
        </div>
     );
   }

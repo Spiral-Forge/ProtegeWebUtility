@@ -5,6 +5,7 @@ import MentorMatches from './mentorMatches';
 import MentorProfile from './mentorProfile';
 import EmptyDiv from './emptyDiv'
 import firebase from "../Firebase/firebase";
+import '../../stylesheets/assignment.css'
 const db = firebase.firestore();
 export default class AssignmentPage extends Component {
   constructor(props) {
@@ -110,7 +111,7 @@ export default class AssignmentPage extends Component {
     var mentorMatchesDiv= this.state.mentorQueryFired ?    <MentorMatches mentorList={this.state.mentorList} openMentorProfile={this.openMentorProfile}/>  : <EmptyDiv/>;
     var mentorProfileDiv= this.state.mentorProfileOpened ?    <MentorProfile user={this.state.selectedMentor} saveAssignment={this.saveAssignment}/>  : <EmptyDiv/>;
     return (
-        <div style={{width:"100%",height:"100vh",backgroundColor:"green",display:"inline-block"}}>
+        <div className="assignmentDiv" style={{width:"100%"}}>
             <MenteeList menteeList={this.state.menteeList} openMenteeProfile={this.openMenteeProfile}/>
             {menteeListDiv}
             {mentorMatchesDiv}

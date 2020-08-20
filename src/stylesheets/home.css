@@ -1,0 +1,11 @@
+.homeDiv{
+    display: flex;
+}
+
+.userForm{
+    width: 50%;
+}
+
+.userList{
+    width: 50%;
+}

@@ -30,8 +30,8 @@ export default class UpdateSection extends Component {
           <h2>Update section</h2>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="name">EventName:</label><br />
-            <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br />
-            <input type="submit" value="Submit"/>
+            <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br /><br />
+            <input class="btn btn-primary" type="submit" value="Submit"/>
         </form>
         <div>
            {updatePart} 

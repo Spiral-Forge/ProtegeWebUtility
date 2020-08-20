@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import firebase from "../Firebase/firebase";
 import ResourceAdd from './resourceAdd'
 import ResourceUpdateAndDelete from './resourceUpdateAndDelete'
+import '../../stylesheets/resources.css'
 const db = firebase.firestore();
 export default class ResourcesPage extends Component {
     constructor(props){
@@ -34,7 +35,7 @@ export default class ResourcesPage extends Component {
     
   render() {
     return (
-      <div> 
+      <div className="resourcesDiv"> 
           <ResourceAdd resourceAdd={this.addResource}/>
           <ResourceUpdateAndDelete getResources={this.getResourceList} onDelete={this.deleteResource} resourceList={this.state.selectedResourceList}/>
           {/* <div style={{backgroundColor:"grey",display:"inline-block",height:"100vh",width:"50%"}}> textInComponent </div> 

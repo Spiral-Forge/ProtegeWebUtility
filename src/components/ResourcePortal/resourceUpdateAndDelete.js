@@ -27,7 +27,8 @@ export default class ResourceUpdateAndDelete extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor:"lightblue",display:"inline-block",height:"100vh",width:"50%"}}> 
+      <div style={{backgroundColor:"#5eaaa8",display:"inline-block",width:"50%"}}> 
+      <div style={{padding:"35px"}}>
       <form onSubmit={this.handleSubmit}>
         <input type="radio" id="male" name="domain" value="Development" checked={this.state.selectedDomain === "Development"} onChange={this.handleOptionChange} />
         <label for="male">Development</label><br />
@@ -43,6 +44,7 @@ export default class ResourceUpdateAndDelete extends Component {
         <label for="other">Open Source</label><br />
         <input type="submit" value="Submit"/>
         </form>
+        </div>
         <div>
             <ul>
                 {this.props.resourceList.map((res)=>{

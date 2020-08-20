@@ -51,25 +51,28 @@ export default class EventUpdateForm extends Component {
       //const {event}=this.props
       
     return (
-        <div style={{backgroundColor:"lightblue",display:"inline-block",height:"100vh",width:"33.33%"}}>
+        <div style={{display:"inline-block",height:"100vh"}}>
+            <div style={{padding:"10px"}}>
         <form onSubmit={this.handleSubmit}>
         <label htmlFor="name">EventName:</label><br />
-        <input type="text" id="name" name="name" value={name} onChange={this.handleChange}/><br />
+        <input class="form-control" type="text" id="name" name="name" value={name} onChange={this.handleChange}/><br />
         <label htmlFor="date">Date:</label><br />
-        <input type="text" id="date" name="date" value={date} onChange={this.handleChange}/><br /><br />
+        <input class="form-control" type="text" id="date" name="date" value={date} onChange={this.handleChange}/><br /><br />
         <label htmlFor="date">URL:</label><br />
-        <input type="text" id="url" name="url" value={url} onChange={this.handleChange}/><br /><br />
+        <input class="form-control"type="text" id="url" name="url" value={url} onChange={this.handleChange}/><br /><br />
         <label htmlFor="date">Venue:</label><br />
-        <input type="text" id="venue" name="venue" value={venue} onChange={this.handleChange}/><br /><br />
+        <input class="form-control" type="text" id="venue" name="venue" value={venue} onChange={this.handleChange}/><br /><br />
         <label htmlFor="date">Time:</label><br />
-        <input type="text" id="time" name="time" value={time} onChange={this.handleChange}/><br /><br />
+        <input class="form-control" type="text" id="time" name="time" value={time} onChange={this.handleChange}/><br /><br />
         <label htmlFor="date">Description:</label><br />
-        <input type="text" id="description" name="description" value={description} onChange={this.handleChange}/><br /><br />
+        <textarea class="form-control" type="text" id="description" name="description" rows="4" cols="50" value={description} onChange={this.handleChange}/><br /><br />
         <label htmlFor="link">Link:</label><br />
-        <input type="text" id="link" name="link" value={link} onChange={this.handleChange}/><br /><br />
-        <input type="submit" value="Submit"/>
+        <input class="form-control" type="text" id="link" name="link" value={link} onChange={this.handleChange}/><br /><br />
+        <input class="btn btn-primary" type="submit" value="Submit"/>
         </form>
         </div>
+        </div>
     );
+    
   }
 }

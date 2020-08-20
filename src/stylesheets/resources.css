@@ -1,0 +1,7 @@
+.resourcesDiv{
+    display: flex
+}
+
+.resourcesDiv label{
+    font-size: 25px;
+}

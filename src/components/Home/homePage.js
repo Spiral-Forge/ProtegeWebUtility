@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import firebase from "../Firebase/firebase";
+import '../../stylesheets/home.css'
 const db = firebase.firestore();
 
 export default class HomePage extends Component {
@@ -46,9 +47,10 @@ export default class HomePage extends Component {
     }
   render() {
     return (
-      <div> 
+      <div className="homeDiv"> 
+          <div className="userForm">
           <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Title:</label><br />
+        <label htmlFor="name">Name of student:</label><br />
         <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br />
         <label htmlFor="branch">Branch:</label><br />
         <input type="text" id="branch" name="branch" value={this.state.branch} onChange={this.handleChange}/><br />
@@ -56,7 +58,8 @@ export default class HomePage extends Component {
         <input type="text" id="year" name="year" value={this.state.year} onChange={this.handleChange}/><br />
         <input type="submit" value="Submit"/>
         </form>
-        <div>
+        </div>
+        <div className="userList">
             <ul>
                 {this.state.searchedUserList.map(user=>{
                     return <li>

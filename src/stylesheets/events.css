@@ -1,0 +1,8 @@
+.eventDiv{
+    background-color: antiquewhite;
+    display: flex;
+}
+
+.eventDiv label{
+    font-size: 25px;
+}

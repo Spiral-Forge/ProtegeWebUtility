@@ -3,6 +3,7 @@ import EventForm from './eventForm'
 import firebase from "../Firebase/firebase";
 import Events from './events'
 import DeleteUpdateSection from './deleteUpdateSection'
+import '../../stylesheets/events.css'
 const db = firebase.firestore();
 export default class EventsPage extends Component {
 
@@ -66,7 +67,7 @@ getEventList=async ()=>{
   render() {
     return (
         
-        <div style={{width:"100%",height:"100vh",backgroundColor:"green",display:"inline-block"}}>
+        <div className="eventDiv" style={{width:"100%"}}>
             <Events eventList={this.state.eventList}/>
         {/* <div style={{backgroundColor:"grey",display:"inline-block",height:"100vh",width:"33.33%"}}> textInComponent </div> */}
         {/* <div style={{backgroundColor:"lightblue",display:"inline-block",height:"100vh",width:"33.33%"}}> div2 </div> */}
