@@ -34,12 +34,13 @@ export default class ResourceAdd extends Component {
     return (
       <div style={{backgroundColor:"#a3d2ca",display:"inline-block",width:"50%",textAlign:"center"}}> 
       <div style={{padding:"35px"}}>
+      <h2>Add Resource</h2>
       <form onSubmit={this.handleSubmit}>
         <label htmlFor="name">Title:</label><br />
         <input class="form-control" type="text" id="name" name="Title" value={this.state.Title} onChange={this.handleChange}/><br />
         <label htmlFor="name">Link:</label><br />
         <input class="form-control" type="text" id="name" name="Link" value={this.state.Link} onChange={this.handleChange}/><br />
-        <p>Select domain: </p><br></br>
+        <label><p>Select domain: </p></label><br></br>
         <input type="radio" id="male" name="domain" value="Development" checked={this.state.selectedDomain === "Development"} onChange={this.handleOptionChange} />
         <label for="male">Development</label><br />
         <input type="radio" id="female" name="domain" value="College" checked={this.state.selectedDomain === "College"} onChange={this.handleOptionChange}/>
@@ -52,7 +53,7 @@ export default class ResourceAdd extends Component {
         <label for="other">Competitive Coding</label><br />
         <input type="radio" id="other" name="domain" value="OpenSource" checked={this.state.selectedDomain === "OpenSource"} onChange={this.handleOptionChange}/>
         <label for="other">Open Source</label><br />
-        <input type="submit" value="Submit"/>
+        <input class="btn btn-primary" type="submit" value="Submit"/>
         </form>
         </div>
        </div>

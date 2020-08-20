@@ -28,7 +28,8 @@ export default class ResourceUpdateAndDelete extends Component {
   render() {
     return (
       <div style={{backgroundColor:"#5eaaa8",display:"inline-block",width:"50%"}}> 
-      <div style={{padding:"35px"}}>
+      <div style={{textAlign:"center", padding:"35px"}}>
+        <h2>View and Delete Resources</h2>
       <form onSubmit={this.handleSubmit}>
         <input type="radio" id="male" name="domain" value="Development" checked={this.state.selectedDomain === "Development"} onChange={this.handleOptionChange} />
         <label for="male">Development</label><br />
@@ -42,16 +43,24 @@ export default class ResourceUpdateAndDelete extends Component {
         <label for="other">Competitive Coding</label><br />
         <input type="radio" id="other" name="domain" value="OpenSource" checked={this.state.selectedDomain === "OpenSource"} onChange={this.handleOptionChange}/>
         <label for="other">Open Source</label><br />
-        <input type="submit" value="Submit"/>
+        <input class="btn btn-primary" type="submit" value="Submit"/>
         </form>
         </div>
         <div>
-            <ul>
+            {this.props.resourceList.length>0 ? <h2>Resources</h2> : null}
+            <ul style={{display: "inline-block"}}>
                 {this.props.resourceList.map((res)=>{
-                    return <li>
-                        <p>{res.Title}</p>
-                        <p>{res.Link}</p>
-                        <button onClick={()=>this.handleDelete(res.id)}>Delete</button>
+                    return <li style={{margin:"15px"}}>
+                       
+                        <div class="card" style={{width: "18rem"}}>
+                            <div class="card-header">
+                                {res.Title}
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{res.Link}</li>
+                                <li class="list-group-item"><button onClick={()=>this.handleDelete(res.id)}>Delete</button></li>
+                            </ul>
+                        </div>
 
                         </li>
                 })}
