@@ -23,6 +23,14 @@ export default class UserCard extends Component {
                 <li class="list-group-item">Languages: {user.languages.map((lang)=>{
                     return lang+", "
                 })}</li>
+                {this.props.isHomeDisplay ? 
+                    <div>
+                    <li class="list-group-item">Post: {user.post}</li>
+                    <li class="list-group-item">PeerID: {user.peerID ? user.peerID : "null"}</li>
+                    </div>
+                    :
+                    null
+                }
             </ul>
         </div>
     );

@@ -63,7 +63,7 @@ export default class HomePage extends Component {
         <div style={{backgroundColor:"#eeeeee",display:"inline-block",textAlign:"center",padding:"20px"}} className="userList">
             <ul>
                 {this.state.searchedUserList.map(user=>{
-                    return <UserCard user={user} />
+                    return <UserCard isHomeDisplay user={user} />
                 })}
             </ul>
         </div>
