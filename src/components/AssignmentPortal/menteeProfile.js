@@ -96,6 +96,7 @@ export default class MenteeProfile extends Component {
           <div>
             <UserCard user={this.props.user} />
             </div>
+            <hr></hr>
             <div>
             <form onSubmit={this.handleSubmit}>
               <p className="filterLabel">FILTERS:</p>

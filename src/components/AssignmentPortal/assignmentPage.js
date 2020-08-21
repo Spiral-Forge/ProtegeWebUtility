@@ -18,7 +18,7 @@ export default class AssignmentPage extends Component {
       menteeList: [],
       mentorList:[],
       selectedMentee:{},
-      selectedMentor:{}
+      selectedMentor:{},
     }
   }
   componentDidMount(){
@@ -27,7 +27,7 @@ export default class AssignmentPage extends Component {
   }
   getMenteeList=async ()=>{
    // console.log("im printing")
-    db.collection("Users").where('post', '==', "Mentee").get()
+    await db.collection("Users").where('post', '==', "Mentee").get()
     .then(querySnapshot => {
       var mydata= querySnapshot.docs.map(a => {
         // console.log("a is ")
@@ -50,7 +50,7 @@ export default class AssignmentPage extends Component {
   }
   getMentorList=async ()=>{
     // console.log("im printing")
-    db.collection("Users").where('post', '==', "Mentor").get()
+    await db.collection("Users").where('post', '==', "Mentor").get()
     .then(querySnapshot => {
       var mydata= querySnapshot.docs.map(a => {
         // console.log("a is ")

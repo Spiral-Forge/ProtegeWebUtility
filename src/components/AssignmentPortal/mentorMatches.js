@@ -11,6 +11,8 @@ export default class MentorMatches extends Component {
                   Name: {item.name}
                   <br />
                   Branch:{item.branch}
+                  <br />
+                  {item.peerID ? item.peerID.length : "dunno"}
                 </div>
             </li>
         ))}
