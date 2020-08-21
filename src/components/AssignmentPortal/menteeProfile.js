@@ -95,10 +95,10 @@ export default class MenteeProfile extends Component {
         <div style={{backgroundColor:"#f3f3f3",display:"inline-block",width:"25%",padding: "10px"}}> 
           <div>
             <UserCard user={this.props.user} />
-            <button onClick={()=>this.props.findMentors(this.props.user)}>Find matches</button>
             </div>
             <div>
             <form onSubmit={this.handleSubmit}>
+              <p className="filterLabel">FILTERS:</p>
               <label className="filterLabel">
                 Select branch:
                 <select name="selectedBranch" value={this.state.selectedBranch} onChange={this.handleChange}>
@@ -113,38 +113,39 @@ export default class MenteeProfile extends Component {
                   <option value="B.Arch">B.Arch</option>
                 </select>
               </label>
-              < br />
+              < hr></hr>
               <label className="filterLabel"><p>Select domain: </p></label><br></br>
                 <input type="checkbox" id="Development" name="domain" value="Web Development" onChange={this.handleOptionChangeDomain} />
-                <label  htmlfor="Development">Web Development</label><br />
+                <label  htmlfor="Development"> Web Development</label><br />
                 <input type="checkbox" id="College" name="domain" value="App Development" onChange={this.handleOptionChangeDomain}/>
-                <label  htmlfor="College">App Development</label><br />
+                <label  htmlfor="College"> App Development</label><br />
                 <input type="checkbox" id="Machine" name="domain" value="Machine Learning" onChange={this.handleOptionChangeDomain}/>
-                <label  htmlfor="Machine">Machine Learning</label><br />
+                <label  htmlfor="Machine"> Machine Learning</label><br />
                 <input type="checkbox" id="Scholarship" name="domain" value="IOT" onChange={this.handleOptionChangeDomain}/>
-                <label  htmlfor="Scholarship">IOT</label><br />
+                <label  htmlfor="Scholarship"> IOT</label><br />
                 <input type="checkbox" id="Competitive" name="domain" value="Competitive Programming"  onChange={this.handleOptionChangeDomain}/>
-                <label  htmlfor="Competitive">Competitive Coding</label><br />
+                <label  htmlfor="Competitive"> Competitive Coding</label><br />
                 <input type="checkbox" id="Open" name="domain" value="No Preference" onChange={this.handleOptionChangeDomain}/>
-                <label  htmlfor="Open">No Preference</label><br />
-
+                <label  htmlfor="Open"> No Preference</label><br />
+                <hr></hr>
                 <label className="filterLabel"><p>Select languages: </p></label><br></br>
                 <input type="checkbox" id="male" name="lang" value="C/C++" onChange={this.handleOptionChangeLang} />
-                <label  htmlfor="male">C/C++</label><br />
+                <label  htmlfor="male"> C/C++  </label>
                 <input type="checkbox" id="female" name="lang" value="Java" onChange={this.handleOptionChangeLang}/>
-                <label  htmlfor="female">Java</label><br />
+                <label  htmlfor="female"> Java  </label><br />
                 <input type="checkbox" id="other" name="lang" value="Python" onChange={this.handleOptionChangeLang}/>
-                <label htmlfor="other">Python</label><br />
+                <label htmlfor="other"> Python  </label>
                 <input type="checkbox" id="Open" name="lang" value="No Preference" onChange={this.handleOptionChangeLang}/>
-                <label  htmlfor="Open">No Preference</label><br />
+                <label  htmlfor="Open"> No Preference</label><br />
                 
-
-                <label className="filterLabel"><p>Hosteller </p></label>
+                <hr></hr>
+                
                 <input type="checkbox" id="Open" name="hosteller" value={true} onChange={this.handleCheckboxes}/>
+                <label className="filterLabel"><p> Hosteller </p></label>
                 <br />
-
-                <label className="filterLabel"><p>0 mentees </p></label>
                 <input type="checkbox" id="Open" name="zeroMenteesFlag" value={true} onChange={this.handleCheckboxes}/>
+                <label className="filterLabel"><p> 0 mentees </p></label>
+                
 
                 <br />
 

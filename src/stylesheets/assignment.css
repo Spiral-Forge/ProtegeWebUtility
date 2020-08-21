@@ -5,3 +5,11 @@
 .filterLabel{
     font-weight: bold;
 }
+
+label {
+    white-space: pre;
+  }
+
+.list-group-item{
+    padding:2px
+}

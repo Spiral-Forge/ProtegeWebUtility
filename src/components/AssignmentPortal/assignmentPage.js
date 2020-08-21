@@ -90,6 +90,7 @@ export default class AssignmentPage extends Component {
         menteeProfileOpened:false,
         mentorQueryFired:false,
         mentorProfileOpened:false,
+        filteredMentorList:[]
       })
 
    }
@@ -129,13 +130,14 @@ export default class AssignmentPage extends Component {
       filteredMentorList=applyZeroMenteeFilter(filteredMentorList)
     }
 
-    console.log(filteredMentorList)
+    console.log("final filtered list ",filteredMentorList)
+    this.setState({...this.state,mentorQueryFired:true,filteredMentorList})
   }
     
   render() {
     console.log(this.state)
-    var menteeListDiv= this.state.menteeProfileOpened ?    <MenteeProfile addFilters={this.addFilters} findMentors={this.findMentors} user={this.state.selectedMentee}/>  : <EmptyDiv/>;
-    var mentorMatchesDiv= this.state.mentorQueryFired ?    <MentorMatches mentorList={this.state.mentorList} openMentorProfile={this.openMentorProfile}/>  : <EmptyDiv/>;
+    var menteeListDiv= this.state.menteeProfileOpened ?    <MenteeProfile addFilters={this.addFilters} user={this.state.selectedMentee}/>  : <EmptyDiv/>;
+    var mentorMatchesDiv= this.state.mentorQueryFired ?    <MentorMatches mentorList={this.state.filteredMentorList} openMentorProfile={this.openMentorProfile}/>  : <EmptyDiv/>;
     var mentorProfileDiv= this.state.mentorProfileOpened ?    <MentorProfile user={this.state.selectedMentor} saveAssignment={this.saveAssignment}/>  : <EmptyDiv/>;
     return (
         <div className="assignmentDiv" style={{width:"100%"}}>
