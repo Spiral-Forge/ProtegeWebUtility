@@ -37,10 +37,10 @@ export default class MenteeProfile extends Component {
     var domains=this.state.selectedDomains;
     var langs=this.state.selectedLanguages;
     var branch=this.state.selectedBranch;
-    if(this.state.selectedDomains.length==1 && this.state.selectedDomains[0]=="No Preference"){
+    if(this.state.selectedDomains.length==0 || (this.state.selectedDomains.length==1 && this.state.selectedDomains[0]=="No Preference")){
       domains=null;
     }
-    if(this.state.selectedLanguages.length==1 && this.state.selectedLanguages[0]=="No Preference"){
+    if(this.state.selectedLanguages.length==0 || (this.state.selectedLanguages.length==1 && this.state.selectedLanguages[0]=="No Preference")){
       langs=null;
     }
     if(this.state.selectedBranch=="None"){

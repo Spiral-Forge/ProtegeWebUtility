@@ -6,7 +6,7 @@ import MentorProfile from './mentorProfile';
 import EmptyDiv from './emptyDiv'
 import firebase from "../Firebase/firebase";
 import '../../stylesheets/assignment.css'
-import {applyBranchFilter,applyHostellerFilter} from './filtering'
+import {applyBranchFilter,applyHostellerFilter,applyDomainsFilter, applyLanguagesFilter,applyZeroMenteeFilter} from './filtering'
 const db = firebase.firestore();
 export default class AssignmentPage extends Component {
   constructor(props) {
@@ -113,9 +113,22 @@ export default class AssignmentPage extends Component {
       filteredMentorList=applyBranchFilter(filteredMentorList,branchFilter)
     }
     if(hostellerFilter){
-      console.log("list going in ",filteredMentorList)
+      console.log("list going in before hostel filter",filteredMentorList)
       filteredMentorList=applyHostellerFilter(filteredMentorList)
     }
+    if(domainFilter!=null){
+      console.log("list going in before domain filter",filteredMentorList)
+      filteredMentorList=applyDomainsFilter(filteredMentorList,domainFilter)
+    }
+    if(langFilter!=null){
+      console.log("list going in before lang filter",filteredMentorList)
+      filteredMentorList=applyLanguagesFilter(filteredMentorList,langFilter)
+    }
+    if(zeroMenteeFilter){
+      console.log("list going in before zero mentee filter",filteredMentorList)
+      filteredMentorList=applyZeroMenteeFilter(filteredMentorList)
+    }
+
     console.log(filteredMentorList)
   }
     
