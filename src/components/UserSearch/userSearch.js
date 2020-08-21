@@ -4,7 +4,7 @@ import '../../stylesheets/home.css'
 import UserCard from '../Common/userCard';
 const db = firebase.firestore();
 
-export default class HomePage extends Component {
+export default class UserSearch extends Component {
     constructor(props){
         super(props)
         this.state={

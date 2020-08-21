@@ -46,7 +46,7 @@ export default class MenteeList extends Component {
         <form onSubmit={this.handleSubmit}>
         <p className="filterLabel">FILTERS:</p>
         <label className="filterLabel">
-            Select branch:
+            Select branch: 
             <select name="branchSelect" value={this.state.branchSelect} onChange={this.handleChange}>
               <option value="None">None</option>
               <option value="CSE-1">CSE-1</option>
