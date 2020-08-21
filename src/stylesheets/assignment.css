@@ -1,3 +1,7 @@
 .assignmentDiv{
     display: flex;
 }
+
+.filterLabel{
+    font-weight: bold;
+}

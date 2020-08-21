@@ -6,6 +6,7 @@ import MentorProfile from './mentorProfile';
 import EmptyDiv from './emptyDiv'
 import firebase from "../Firebase/firebase";
 import '../../stylesheets/assignment.css'
+import {applyBranchFilter,applyHostellerFilter} from './filtering'
 const db = firebase.firestore();
 export default class AssignmentPage extends Component {
   constructor(props) {
@@ -104,10 +105,23 @@ export default class AssignmentPage extends Component {
     //console.log(item)
     this.setState({selectedMentor:item,mentorProfileOpened:true})
   }
+  addFilters=(branchFilter,hostellerFilter,domainFilter,langFilter,zeroMenteeFilter)=>{
+    console.log("data recieved in parent page ",branchFilter,hostellerFilter,domainFilter,langFilter,zeroMenteeFilter)
+    var filteredMentorList=this.state.mentorList
+    if(branchFilter!=null){
+      console.log("filtering using branch")
+      filteredMentorList=applyBranchFilter(filteredMentorList,branchFilter)
+    }
+    if(hostellerFilter){
+      console.log("list going in ",filteredMentorList)
+      filteredMentorList=applyHostellerFilter(filteredMentorList)
+    }
+    console.log(filteredMentorList)
+  }
     
   render() {
     console.log(this.state)
-    var menteeListDiv= this.state.menteeProfileOpened ?    <MenteeProfile findMentors={this.findMentors} user={this.state.selectedMentee}/>  : <EmptyDiv/>;
+    var menteeListDiv= this.state.menteeProfileOpened ?    <MenteeProfile addFilters={this.addFilters} findMentors={this.findMentors} user={this.state.selectedMentee}/>  : <EmptyDiv/>;
     var mentorMatchesDiv= this.state.mentorQueryFired ?    <MentorMatches mentorList={this.state.mentorList} openMentorProfile={this.openMentorProfile}/>  : <EmptyDiv/>;
     var mentorProfileDiv= this.state.mentorProfileOpened ?    <MentorProfile user={this.state.selectedMentor} saveAssignment={this.saveAssignment}/>  : <EmptyDiv/>;
     return (

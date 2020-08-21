@@ -32,7 +32,7 @@ export default class ResourceAdd extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor:"#a3d2ca",display:"inline-block",width:"50%",textAlign:"center"}}> 
+      <div style={{backgroundColor:"#f3f3f3",display:"inline-block",width:"50%",textAlign:"center"}}> 
       <div style={{padding:"35px"}}>
       <h2>Add Resource</h2>
       <form onSubmit={this.handleSubmit}>

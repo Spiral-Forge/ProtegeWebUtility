@@ -5,7 +5,7 @@ import UpdateSection from './updateSection'
 export default class DeleteUpdateSection extends Component {
   render() {
     return (
-        <div className="parent" style={{backgroundColor:"#a3d2ca",display:"inline-block",width:"33.33%"}}>
+        <div className="parent" style={{backgroundColor:"#f3f3f3",display:"inline-block",width:"33.33%"}}>
       <DeleteForm deleteEvent={this.props.deleteEvent}/>
       <br />
       <br />

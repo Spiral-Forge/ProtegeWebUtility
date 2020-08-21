@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from "../Firebase/firebase";
 import '../../stylesheets/home.css'
+import UserCard from '../Common/userCard';
 const db = firebase.firestore();
 
 export default class HomePage extends Component {
@@ -48,25 +49,21 @@ export default class HomePage extends Component {
   render() {
     return (
       <div className="homeDiv"> 
-          <div className="userForm">
-          <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Name of student:</label><br />
-        <input type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br />
-        <label htmlFor="branch">Branch:</label><br />
-        <input type="text" id="branch" name="branch" value={this.state.branch} onChange={this.handleChange}/><br />
-        <label htmlFor="year">Year: (Enter First,Second,Third)</label><br />
-        <input type="text" id="year" name="year" value={this.state.year} onChange={this.handleChange}/><br />
-        <input type="submit" value="Submit"/>
-        </form>
+          <div style={{backgroundColor:"#f3f3f3",display:"inline-block",textAlign:"center",padding:"100px"}} className="userForm">
+            <form onSubmit={this.handleSubmit}>
+            <label htmlFor="name">Name of student:</label><br />
+            <input class="form-control" type="text" id="name" name="name" value={this.state.name} onChange={this.handleChange}/><br />
+            <label htmlFor="branch">Branch:</label><br />
+            <input class="form-control" type="text" id="branch" name="branch" value={this.state.branch} onChange={this.handleChange}/><br />
+            <label htmlFor="year">Year: (Enter First,Second,Third)</label><br />
+            <input class="form-control" type="text" id="year" name="year" value={this.state.year} onChange={this.handleChange}/><br /><br />
+            <input class="btn btn-primary" type="submit" value="Submit"/>
+            </form>
         </div>
-        <div className="userList">
+        <div style={{backgroundColor:"#eeeeee",display:"inline-block",textAlign:"center",padding:"20px"}} className="userList">
             <ul>
                 {this.state.searchedUserList.map(user=>{
-                    return <li>
-                        <p>{user.name}</p>
-                        <p>{user.branch}</p>
-                        <p>{user.year}</p>
-                    </li>
+                    return <UserCard user={user} />
                 })}
             </ul>
         </div>

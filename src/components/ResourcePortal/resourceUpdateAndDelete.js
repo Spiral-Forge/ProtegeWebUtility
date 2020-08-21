@@ -27,7 +27,7 @@ export default class ResourceUpdateAndDelete extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor:"#5eaaa8",display:"inline-block",width:"50%"}}> 
+      <div style={{backgroundColor:"#eeeeee",display:"inline-block",width:"50%"}}> 
       <div style={{textAlign:"center", padding:"35px"}}>
         <h2>View and Delete Resources</h2>
       <form onSubmit={this.handleSubmit}>

@@ -61,7 +61,7 @@ export default class EventForm extends Component {
 
       
     return (
-        <div className="parent" style={{backgroundColor:"#5eaaa8",display:"inline-block",width:"33.33%"}}>
+        <div className="parent" style={{backgroundColor:"#eeeeee",display:"inline-block",width:"33.33%"}}>
         <h2>Add an event</h2>
         <div style={{padding:"15px"}}>
         <form onSubmit={this.handleSubmit}>

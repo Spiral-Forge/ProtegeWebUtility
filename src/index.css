@@ -30,7 +30,7 @@ body {
 
 .navbar{
   background-color: #34495e;
-  background-image: linear-gradient(#565656, #96ece7);
+  background-image: linear-gradient(#565656,#565656, #96ece7,#96ece7,#565656,#565656);
   background-size: 100%;
   margin-bottom: 0;
 }
@@ -79,4 +79,8 @@ ul{
 
 .parent{
   padding:10px
+}
+
+#marginHandler{
+  margin:0;
 }
