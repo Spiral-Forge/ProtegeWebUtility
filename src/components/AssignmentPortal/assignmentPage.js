@@ -28,7 +28,7 @@ export default class AssignmentPage extends Component {
   getMenteeList=async ()=>{
    // console.log("im printing")
     await db.collection("Users").where('post', '==', "Mentee").get()
-    .then(querySnapshot => {
+    .then(async querySnapshot => {
       var mydata= querySnapshot.docs.map(a => {
         // console.log("a is ")
         // console.log(a)
@@ -36,8 +36,22 @@ export default class AssignmentPage extends Component {
         const id = a.id;
         return { id, ...data };
       });
+      
+      
+      for(var i=0;i<mydata.length;i++){
+        //console.log(mydata[i].peerID[0])
+        if(mydata[i].peerID[0]){
+        //await db.collection("Users").doc(mydata[i].peerID[0]).get()
+        await db.collection('Users').doc(mydata[i].peerID[0]).get()
+        .then(snapshot => {
+          
+          console.log("mentee "+mydata[i].name+" "+mydata[i].languages+" - "+"mentor "+snapshot.data().name+" "+snapshot.data().languages)
+        })
+      }
+        // var final=await objs.get();
+        // console.log("objs",final)
+      }
       this.setState({menteeList:mydata})
-      });
     //return {}
     // fb.db.collection("users")
     // .orderByKey()
@@ -47,6 +61,7 @@ export default class AssignmentPage extends Component {
     //   console.log(data); // array of cities objects
     // });
     //return {}
+  });
   }
   getMentorList=async ()=>{
     // console.log("im printing")
@@ -55,6 +70,7 @@ export default class AssignmentPage extends Component {
       var mydata= querySnapshot.docs.map(a => {
         // console.log("a is ")
         // console.log(a)
+        console.log(mydata)
         const data = a.data();
         const id = a.id;
         return { id, ...data };

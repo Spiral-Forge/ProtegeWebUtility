@@ -43,6 +43,7 @@ export default class MenteeList extends Component {
     console.log(this.props.menteeList)
     return (
         <div style={{backgroundColor:"#eeeeee",display:"inline-block",width:"25%"}}> 
+        <p>No of mentees: {this.props.menteeList.length}</p>
         <form onSubmit={this.handleSubmit}>
         <p className="filterLabel">FILTERS:</p>
         <label className="filterLabel">
