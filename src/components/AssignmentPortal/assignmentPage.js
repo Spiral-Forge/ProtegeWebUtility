@@ -36,8 +36,15 @@ export default class AssignmentPage extends Component {
         const id = a.id;
         return { id, ...data };
       });
-      this.setState({menteeList:mydata})
+      var mydata2=mydata.filter((mentee)=>{
+        console.log("true of false?",mentee.cohort!=null && mentee.cohort=="January 2021");
+        return mentee.cohort!=null && mentee.cohort=="January 2021"
+      })
+      console.log("data after filtering",mydata2)
+      this.setState({menteeList:mydata2})
       });
+
+
     //return {}
     // fb.db.collection("users")
     // .orderByKey()
@@ -48,6 +55,55 @@ export default class AssignmentPage extends Component {
     // });
     //return {}
   }
+
+  addCohort=async()=>{
+    var querySnapshot= await db.collection("Users").where('contact', 'in', ["9868279694","8800316138","8700921396","9650244409","9643286358","9560254232","9267998718","8447070650","8882399925","8882399570"]).get()
+      console.log("data peeps",querySnapshot.docs.length)
+      for(var i=0;i<querySnapshot.docs.length;i++){
+        await db.collection("Users").doc(querySnapshot.docs[i].id).update({cohort:"January 2021"})
+      }
+       
+      console.log("DONEEE 1")
+
+      querySnapshot=await db.collection("Users").where('contact', 'in', ["9582181906",
+      "9953571891",
+      "9034471692",
+      "9810519877",
+      "9971073352",
+      "8882627087",
+      "8882250446",
+      "9911861676",
+      "9205642321",
+      "9560523933",
+        ]).get()
+        console.log("data peeps",querySnapshot.docs.length)
+        for(var i=0;i<querySnapshot.docs.length;i++){
+          //console.log("yoyo",querySnapshot.docs[i].id)
+          await db.collection("Users").doc(querySnapshot.docs[i].id).update({cohort:"January 2021"})
+        }
+        console.log("done 2")
+
+
+        querySnapshot=await db.collection("Users").where('contact', 'in', ["9149345729",
+          "8700556386",
+          "8920130926",
+          "7906771458",
+          "9810210801",
+          "8851618045",
+          "8376888524"
+          ]).get()
+          console.log("data peeps",querySnapshot.docs.length)
+          for(var i=0;i<querySnapshot.docs.length;i++){
+            //console.log("yoyo",querySnapshot.docs[i].id)
+            await db.collection("Users").doc(querySnapshot.docs[i].id).update({cohort:"January 2021"})
+          }
+          console.log("check now")
+
+
+      
+      
+  }
+
   getMentorList=async ()=>{
     // console.log("im printing")
     await db.collection("Users").where('post', '==', "Mentor").get()
@@ -55,11 +111,17 @@ export default class AssignmentPage extends Component {
       var mydata= querySnapshot.docs.map(a => {
         // console.log("a is ")
         // console.log(a)
+        console.log(mydata)
         const data = a.data();
         const id = a.id;
         return { id, ...data };
       });
-      this.setState({mentorList:mydata})
+      var mydata2=mydata.filter((mentee)=>{
+        console.log("true of false?",mentee.cohort!=null && mentee.cohort=="January 2021");
+        return mentee.cohort!=null && mentee.cohort=="January 2021"
+      })
+      console.log("mentor data",mydata2)
+      this.setState({mentorList:mydata2})
       });
    }
 
@@ -141,6 +203,7 @@ export default class AssignmentPage extends Component {
     var mentorProfileDiv= this.state.mentorProfileOpened ?    <MentorProfile user={this.state.selectedMentor} saveAssignment={this.saveAssignment}/>  : <EmptyDiv/>;
     return (
         <div className="assignmentDiv" style={{width:"100%"}}>
+            {/* <button onClick={this.addCohort}>ADD COHORT</button> */}
             <MenteeList menteeList={this.state.menteeList} openMenteeProfile={this.openMenteeProfile}/>
             {menteeListDiv}
             {mentorMatchesDiv}
