@@ -106,6 +106,7 @@ export default class MenteeProfile extends Component {
                   <option value="None">None</option>
                   <option value="CSE-1">CSE-1</option>
                   <option value="CSE-2">CSE-2</option>
+                  <option value="CSAI">CSAI</option>
                   <option value="IT-1">IT-1</option>
                   <option value="IT-2">IT-2</option>
                   <option value="ECE">ECE</option>
