@@ -19,7 +19,6 @@ export default function UserSearch() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // showUser(formData.name, formData.branch, formData.year);
     showUser(formData.name);
   };
 
@@ -27,6 +26,7 @@ export default function UserSearch() {
     db.collection("Users")
       .where("name", ">=", name)
       .where("name", "<=", name + "\uf8ff")
+
       .get()
       .then((list) => {
         var mydata = list.docs.map((a) => {
@@ -34,26 +34,9 @@ export default function UserSearch() {
           const id = a.id;
           return { id, ...data };
         });
-        // console.log(mydata);
         setUserList(mydata);
       });
   };
-  // const showUser = async (name, branch, year) => {
-  //   db.collection("Users")
-  //     .where("name", "==", name)
-  //     .where("branch", "==", branch)
-  //     .where("year", "==", year)
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       var mydata = querySnapshot.docs.map((a) => {
-  //         const data = a.data();
-  //         const id = a.id;
-  //         return { id, ...data };
-  //       });
-  //       // console.log(mydata);
-  //       setSearchedUserList(mydata);
-  //     });
-  // };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -74,28 +57,7 @@ export default function UserSearch() {
             onChange={handleChange}
           />
           <br />
-          {/* <label htmlFor="branch">Branch:</label>
-          <br />
-          <input
-            className="form-control"
-            type="text"
-            id="branch"
-            name="branch"
-            value={formData.branch}
-            onChange={handleChange}
-          />
-          <br />
-          <label htmlFor="year">Year: (Enter First,Second,Third)</label>
-          <br />
-          <input
-            className="form-control"
-            type="text"
-            id="year"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-          /> 
-          <br />*/}
+
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
         {UserList.map((user) => (
