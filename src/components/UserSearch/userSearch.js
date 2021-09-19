@@ -61,7 +61,12 @@ export default function UserSearch() {
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
         {UserList.map((user) => (
-          <div onClick={() => setSearchedUserList([user])}>
+          <div
+            onClick={() => {
+              setSearchedUserList([user]);
+              window.scrollTo(0, 0);
+            }}
+          >
             <Card user={user} />
           </div>
         ))}
