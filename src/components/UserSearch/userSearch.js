@@ -3,9 +3,11 @@ import firebase from "../Firebase/firebase";
 import "../../stylesheets/home.css";
 import UserCard from "../Common/userCard";
 import PeerCard from "../Common/peerCard";
+import Card from "./card";
 const db = firebase.firestore();
 
 export default function UserSearch() {
+  const [UserList, setUserList] = useState([]);
   const [searchedUserList, setSearchedUserList] = useState([]);
   const [searchedPeerList, setSearchedPeerList] = useState([]);
 
@@ -17,25 +19,41 @@ export default function UserSearch() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    showUser(formData.name, formData.branch, formData.year);
+    // showUser(formData.name, formData.branch, formData.year);
+    showUser(formData.name);
   };
 
-  const showUser = async (name, branch, year) => {
+  const showUser = async (name) => {
     db.collection("Users")
-      .where("name", "==", name)
-      .where("branch", "==", branch)
-      .where("year", "==", year)
+      .where("name", ">=", name)
+      .where("name", "<=", name + "\uf8ff")
       .get()
-      .then((querySnapshot) => {
-        var mydata = querySnapshot.docs.map((a) => {
+      .then((list) => {
+        var mydata = list.docs.map((a) => {
           const data = a.data();
           const id = a.id;
           return { id, ...data };
         });
         // console.log(mydata);
-        setSearchedUserList(mydata);
+        setUserList(mydata);
       });
   };
+  // const showUser = async (name, branch, year) => {
+  //   db.collection("Users")
+  //     .where("name", "==", name)
+  //     .where("branch", "==", branch)
+  //     .where("year", "==", year)
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       var mydata = querySnapshot.docs.map((a) => {
+  //         const data = a.data();
+  //         const id = a.id;
+  //         return { id, ...data };
+  //       });
+  //       // console.log(mydata);
+  //       setSearchedUserList(mydata);
+  //     });
+  // };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,15 +61,7 @@ export default function UserSearch() {
 
   return (
     <div className="homeDiv">
-      <div
-        style={{
-          backgroundColor: "#f3f3f3",
-          display: "inline-block",
-          textAlign: "center",
-          padding: "100px",
-        }}
-        className="userForm"
-      >
+      <div className="userForm">
         <form onSubmit={handleSubmit}>
           <label htmlFor="name">Name of student:</label>
           <br />
@@ -64,7 +74,7 @@ export default function UserSearch() {
             onChange={handleChange}
           />
           <br />
-          <label htmlFor="branch">Branch:</label>
+          {/* <label htmlFor="branch">Branch:</label>
           <br />
           <input
             className="form-control"
@@ -84,11 +94,15 @@ export default function UserSearch() {
             name="year"
             value={formData.year}
             onChange={handleChange}
-          />
-          <br />
-          <br />
+          /> 
+          <br />*/}
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
+        {UserList.map((user) => (
+          <div onClick={() => setSearchedUserList([user])}>
+            <Card user={user} />
+          </div>
+        ))}
       </div>
       <div
         style={{

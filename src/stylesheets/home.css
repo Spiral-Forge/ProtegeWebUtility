@@ -1,16 +1,40 @@
-.homeDiv{
-    display: flex;
+.homeDiv {
+  display: flex;
 }
 
-.userForm{
-    width: 50%;
+.userForm {
+  width: 350px;
+  padding: 1rem;
+  background-color: #f3f3f3;
+  text-align: center;
 }
 
-.userList{
-    width: 50%;
+.userForm form {
+  margin-bottom: 1rem;
 }
 
-#aboutUs{
-    font-size: 20px;
-    padding:70px;
+.userList {
+  width: 100%;
+}
+
+.smallCard {
+  background-color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid rgb(231, 231, 231);
+}
+
+.smallCard:hover {
+  border-color: #81b6e9;
+}
+
+.smallCard p {
+  margin: 0;
+  text-align: left;
+}
+
+#aboutUs {
+  font-size: 20px;
+  padding: 70px;
 }

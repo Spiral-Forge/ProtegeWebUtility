@@ -52,7 +52,7 @@ export default function UserCard({ user, isHomeDisplay, setSearchedPeerList }) {
                 user.peerID.map((id) => (
                   <div style={{ marginBottom: "10px" }}>
                     <p style={{ marginBottom: "5px" }}>{id}</p>
-                    <button onClick={() => peerData(id)}>Click</button>
+                    <button onClick={() => peerData(id)}>View Peer</button>
                   </div>
                 ))}
             </li>
