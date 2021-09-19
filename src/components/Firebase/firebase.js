@@ -1,5 +1,5 @@
-import firebase from 'firebase';
-import 'firebase/database';
+import firebase from "firebase";
+import "firebase/database";
 
 var config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -9,13 +9,9 @@ var config = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_APP_ID,
-  measurementId:process.env.REACT_APP_MEASUREMENT_ID
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-
-  firebase.initializeApp(config);
-  export default firebase;
-
-
-
-  
+firebase.initializeApp(config);
+export const auth = firebase.auth();
+export default firebase;
