@@ -1,24 +1,6 @@
 import React, { Component } from "react";
-import firebase from "../Firebase/firebase";
-const db = firebase.firestore();
 
-export default function UserCard({ user, isHomeDisplay, setSearchedPeerList }) {
-  const peerData = async (id) => {
-    var userRef = await db
-      .collection("Users")
-      .where(firebase.firestore.FieldPath.documentId(), "==", id)
-      .get()
-      .then((snap) => {
-        var mydata = snap.docs.map((a) => {
-          const data = a.data();
-          return { ...data };
-        });
-        return mydata;
-      });
-
-    setSearchedPeerList(userRef);
-  };
-
+export default function PeerCard({ user, isHomeDisplay }) {
   return (
     <div id="marginHandler" className="card" style={{ width: "18rem" }}>
       <div className="card-header">{user.name}</div>
@@ -52,7 +34,6 @@ export default function UserCard({ user, isHomeDisplay, setSearchedPeerList }) {
                 user.peerID.map((id) => (
                   <div style={{ marginBottom: "10px" }}>
                     <p style={{ marginBottom: "5px" }}>{id}</p>
-                    <button onClick={() => peerData(id)}>Click</button>
                   </div>
                 ))}
             </li>
