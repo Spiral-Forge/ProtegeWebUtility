@@ -20,6 +20,7 @@ export default function UserSearch() {
   const handleSubmit = (e) => {
     e.preventDefault();
     showUser(formData.name);
+    setSearchedPeerList([]);
   };
 
   const showUser = async (name) => {
@@ -58,6 +59,12 @@ export default function UserSearch() {
           />
           <br />
 
+          {/* 
+          email
+          branch
+          year
+          phone */}
+
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
         {UserList.map((user) => (
@@ -80,7 +87,13 @@ export default function UserSearch() {
         }}
         className="userList"
       >
-        <ul style={{ display: "flex", gap: "20px" }}>
+        <ul
+          style={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            gap: "20px",
+          }}
+        >
           {searchedUserList.map((user) => {
             return (
               <UserCard
