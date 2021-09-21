@@ -103,6 +103,7 @@ export default function UserSearch() {
           <div
             onClick={() => {
               setSearchedUserList([user]);
+              setSearchedPeerList([]);
               window.scrollTo(0, 0);
             }}
           >
@@ -131,6 +132,7 @@ export default function UserSearch() {
               <UserCard
                 isHomeDisplay
                 user={user}
+                setSearchedUserList={setSearchedUserList}
                 setSearchedPeerList={setSearchedPeerList}
               />
             );

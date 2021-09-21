@@ -2,21 +2,40 @@ import React, { Component } from "react";
 import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
 
-export default function UserCard({ user, isHomeDisplay, setSearchedPeerList }) {
+export default function UserCard({
+  user,
+  isHomeDisplay,
+  setSearchedUserList,
+  setSearchedPeerList,
+}) {
+  const viewPeer = async (id) => {
+    const res = await peerData(id);
+    console.log(res);
+    setSearchedPeerList([res]);
+  };
+
   const peerData = async (id) => {
-    var userRef = await db
+    var snap = await db
       .collection("Users")
       .where(firebase.firestore.FieldPath.documentId(), "==", id)
-      .get()
-      .then((snap) => {
-        var mydata = snap.docs.map((a) => {
-          const data = a.data();
-          return { ...data };
-        });
-        return mydata;
-      });
+      .get();
+    const peer = snap.docs.map((a) => {
+      const data = a.data();
+      return { ...data };
+    });
+    return peer[0];
+  };
 
-    setSearchedPeerList(userRef);
+  const removePeer = async (id) => {
+    const peer = await peerData(id);
+    const pId = user.peerID.shift();
+    const uId = peer.peerID.shift();
+    await db.collection("Users").doc(uId).update(user);
+    await db.collection("Users").doc(pId).update(peer);
+
+    const res = await peerData(uId);
+    setSearchedUserList([res]);
+    setSearchedPeerList([]);
   };
 
   return (
@@ -52,7 +71,18 @@ export default function UserCard({ user, isHomeDisplay, setSearchedPeerList }) {
                 user.peerID.map((id) => (
                   <div style={{ marginBottom: "10px" }}>
                     <p style={{ marginBottom: "5px" }}>{id}</p>
-                    <button onClick={() => peerData(id)}>View Peer</button>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <button onClick={() => removePeer(id)}>
+                        Remove Peer
+                      </button>
+                      <button onClick={() => viewPeer(id)}>View Peer</button>
+                    </div>
                   </div>
                 ))}
             </li>
