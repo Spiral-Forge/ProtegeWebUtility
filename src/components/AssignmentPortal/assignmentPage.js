@@ -13,6 +13,8 @@ import {
   applyLanguagesFilter,
   applyZeroMenteeFilter,
 } from "./filtering";
+
+import { notify } from "./notification";
 const db = firebase.firestore();
 export default class AssignmentPage extends Component {
   constructor(props) {
@@ -215,6 +217,17 @@ export default class AssignmentPage extends Component {
       mentorProfileOpened: false,
       filteredMentorList: [],
     });
+
+    notify(
+      menteeObj.token,
+      "Mentor Assigned",
+      `${mentorObj.name} is assigned to you as a mentor`
+    );
+    notify(
+      mentorObj.token,
+      "Mentee Assigned",
+      `${menteeObj.name} is assigned to you as a mentee`
+    );
   };
 
   openMenteeProfile = (item) => {
