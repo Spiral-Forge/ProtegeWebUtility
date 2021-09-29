@@ -4,70 +4,102 @@ import "../../stylesheets/home.css";
 import UserCard from "../Common/userCard";
 import PeerCard from "../Common/peerCard";
 import Card from "./card";
+import {
+  searchByName,
+  searchByEmail,
+  searchByPhone,
+  searchByNameAndEmail,
+  searchByNameAndPhone,
+  searchByEmailAndPhone,
+  searchByNameAndEmailAndPhone,
+} from "./search";
+
 const db = firebase.firestore();
 
 export default function UserSearch() {
-  const [UserList, setUserList] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [searchedUserList, setSearchedUserList] = useState([]);
   const [searchedPeerList, setSearchedPeerList] = useState([]);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    branch: "",
-    year: "",
-  });
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phone, setPhone] = useState();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    showUser(formData.name);
-    setSearchedPeerList([]);
+    setUserList([]);
+
+    if (!!name && !!email && !!phone) {
+      const res = await searchByNameAndEmailAndPhone(name, email, phone);
+      setUserList(res);
+    } else if (!!name && !!email) {
+      const res = await searchByNameAndEmail(name, email);
+      setUserList(res);
+    } else if (!!name && !!phone) {
+      const res = await searchByNameAndPhone(name, phone);
+      setUserList(res);
+    } else if (!!phone && !!email) {
+      const res = await searchByEmailAndPhone(email, phone);
+      setUserList(res);
+    } else if (!!name) {
+      const res = await searchByName(name);
+      setUserList(res);
+    } else if (!!email) {
+      const res = await searchByEmail(email);
+      setUserList(res);
+    } else if (!!phone) {
+      const res = await searchByPhone(phone);
+      setUserList(res);
+    }
   };
 
-  const showUser = async (name) => {
-    db.collection("Users")
-      .where("name", ">=", name)
-      .where("name", "<=", name + "\uf8ff")
-
-      .get()
-      .then((list) => {
-        var mydata = list.docs.map((a) => {
-          const data = a.data();
-          const id = a.id;
-          return { id, ...data };
-        });
-        setUserList(mydata);
-      });
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // setUserList(mydata);
 
   return (
     <div className="homeDiv">
       <div className="userForm">
         <form onSubmit={handleSubmit}>
-          <label htmlFor="name">Name of student:</label>
+          {/* <label htmlFor="name">Name</label> */}
           <br />
           <input
             className="form-control"
             type="text"
             id="name"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <br />
+          {/* <label htmlFor="email">Email</label> */}
+          {/* <br /> */}
+          <input
+            className="form-control"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <br />
+          {/* <label htmlFor="phone">Phone</label> */}
+          {/* <br /> */}
+          <input
+            className="form-control"
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Phone"
+            maxLength="10"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
 
-          {/* 
-          email
-          branch
-          year
-          phone */}
-
+          <br />
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
-        {UserList.map((user) => (
+        {userList.map((user) => (
           <div
             onClick={() => {
               setSearchedUserList([user]);
