@@ -28,8 +28,14 @@ export default function UserCard({
 
   const removePeer = async (id) => {
     const peer = await peerData(id);
-    const pId = user.peerID.shift();
-    const uId = peer.peerID.shift();
+    const uIdx = user.peerID.indexOf(id);
+    const pIdx = peer.peerID.indexOf(user.id);
+
+    const pId = user.peerID.splice(uIdx, 1)[0];
+    const uId = peer.peerID.splice(pIdx, 1)[0];
+
+    delete user.id;
+
     await db.collection("Users").doc(uId).update(user);
     await db.collection("Users").doc(pId).update(peer);
 
