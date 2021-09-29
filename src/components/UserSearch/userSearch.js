@@ -85,6 +85,7 @@ export default function UserSearch() {
           <br />
           {/* <label htmlFor="phone">Phone</label> */}
           {/* <br /> */}
+
           <input
             className="form-control"
             type="text"
@@ -132,6 +133,7 @@ export default function UserSearch() {
               <UserCard
                 isHomeDisplay
                 user={user}
+                searchedUserList={searchedUserList}
                 setSearchedUserList={setSearchedUserList}
                 setSearchedPeerList={setSearchedPeerList}
               />
