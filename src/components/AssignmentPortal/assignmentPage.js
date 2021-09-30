@@ -29,6 +29,7 @@ export default class AssignmentPage extends Component {
       selectedMentor: {},
     };
   }
+
   componentDidMount() {
     this.getMenteeList();
     this.getMentorList();
@@ -57,105 +58,6 @@ export default class AssignmentPage extends Component {
         console.log("data after filtering", mydata2);
         this.setState({ menteeList: mydata2 });
       });
-
-    // for(var i=0;i<mydata.length;i++){
-    //   //console.log(mydata[i].peerID[0])
-    //   if(mydata[i].peerID[0]){
-    //   //await db.collection("Users").doc(mydata[i].peerID[0]).get()
-    //   await db.collection('Users').doc(mydata[i].peerID[0]).get()
-    //   .then(snapshot => {
-
-    //     console.log("mentee "+mydata[i].name+" "+mydata[i].languages+" - "+"mentor "+snapshot.data().name+" "+snapshot.data().languages)
-    //   })
-    // }
-    //   // var final=await objs.get();
-    //   // console.log("objs",final)
-    // }
-    // this.setState({menteeList:mydata})
-    //return {}
-    // fb.db.collection("users")
-    // .orderByKey()
-    // .get()
-    // .then(querySnapshot => {
-    //   const data = querySnapshot.docs.map(doc => doc.data());
-    //   console.log(data); // array of cities objects
-    // });
-    //return {}
-    //});
-  };
-
-  addCohort = async () => {
-    var querySnapshot = await db
-      .collection("Users")
-      .where("contact", "in", [
-        "9868279694",
-        "8800316138",
-        "8700921396",
-        "9650244409",
-        "9643286358",
-        "9560254232",
-        "9267998718",
-        "8447070650",
-        "8882399925",
-        "8882399570",
-      ])
-      .get();
-    console.log("data peeps", querySnapshot.docs.length);
-    for (var i = 0; i < querySnapshot.docs.length; i++) {
-      await db
-        .collection("Users")
-        .doc(querySnapshot.docs[i].id)
-        .update({ cohort: "January 2021" });
-    }
-
-    console.log("DONEEE 1");
-
-    querySnapshot = await db
-      .collection("Users")
-      .where("contact", "in", [
-        "9582181906",
-        "9953571891",
-        "9034471692",
-        "9810519877",
-        "9971073352",
-        "8882627087",
-        "8882250446",
-        "9911861676",
-        "9205642321",
-        "9560523933",
-      ])
-      .get();
-    console.log("data peeps", querySnapshot.docs.length);
-    for (var i = 0; i < querySnapshot.docs.length; i++) {
-      //console.log("yoyo",querySnapshot.docs[i].id)
-      await db
-        .collection("Users")
-        .doc(querySnapshot.docs[i].id)
-        .update({ cohort: "January 2021" });
-    }
-    console.log("done 2");
-
-    querySnapshot = await db
-      .collection("Users")
-      .where("contact", "in", [
-        "9149345729",
-        "8700556386",
-        "8920130926",
-        "7906771458",
-        "9810210801",
-        "8851618045",
-        "8376888524",
-      ])
-      .get();
-    console.log("data peeps", querySnapshot.docs.length);
-    for (var i = 0; i < querySnapshot.docs.length; i++) {
-      //console.log("yoyo",querySnapshot.docs[i].id)
-      await db
-        .collection("Users")
-        .doc(querySnapshot.docs[i].id)
-        .update({ cohort: "January 2021" });
-    }
-    console.log("check now");
   };
 
   getMentorList = async () => {
@@ -199,16 +101,41 @@ export default class AssignmentPage extends Component {
     );
     var menteeObj = { ...currentMenteeWithoutID, peerID: menteePeerIDCopy };
     // console.log(objtobeset)
-    await db
-      .collection("Users")
-      .doc(this.state.selectedMentee.id)
-      .set(menteeObj);
+    try {
+      // throw "Custom Error 1";
+      await db
+        .collection("Users")
+        .doc(this.state.selectedMentee.id)
+        .set(menteeObj);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
     var mentorPeerIDCopy = mentor.peerID.slice();
     mentorPeerIDCopy.push(this.state.selectedMentee.id);
     const currentMentorWithoutID = (({ id, ...o }) => o)(mentor);
     var mentorObj = { ...currentMentorWithoutID, peerID: mentorPeerIDCopy };
     //console.log(mentor)
-    await db.collection("Users").doc(mentor.id).set(mentorObj);
+    try {
+      await db.collection("Users").doc(mentor.id).set(mentorObj);
+      notify(
+        menteeObj.token,
+        "Mentor Assigned",
+        `${mentorObj.name} is assigned to you as a mentor`
+      );
+      notify(
+        mentorObj.token,
+        "Mentee Assigned",
+        `${menteeObj.name} is assigned to you as a mentee`
+      );
+    } catch (error) {
+      await db
+        .collection("Users")
+        .doc(this.state.selectedMentee.id)
+        .set(currentMenteeWithoutID);
+      console.log(error);
+    }
+
     await this.getMenteeList();
     await this.getMentorList();
     this.setState({
@@ -217,17 +144,6 @@ export default class AssignmentPage extends Component {
       mentorProfileOpened: false,
       filteredMentorList: [],
     });
-
-    notify(
-      menteeObj.token,
-      "Mentor Assigned",
-      `${mentorObj.name} is assigned to you as a mentor`
-    );
-    notify(
-      mentorObj.token,
-      "Mentee Assigned",
-      `${menteeObj.name} is assigned to you as a mentee`
-    );
   };
 
   openMenteeProfile = (item) => {
@@ -317,7 +233,6 @@ export default class AssignmentPage extends Component {
     );
     return (
       <div className="assignmentDiv" style={{ width: "100%" }}>
-        {/* <button onClick={this.addCohort}>ADD COHORT</button> */}
         <MenteeList
           menteeList={this.state.menteeList}
           openMenteeProfile={this.openMenteeProfile}
