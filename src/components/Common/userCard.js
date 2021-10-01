@@ -7,6 +7,7 @@ export default function UserCard({
   isHomeDisplay,
   setSearchedUserList,
   setSearchedPeerList,
+  setEdit,
 }) {
   const viewPeer = async (id) => {
     const res = await peerData(id);
@@ -95,6 +96,7 @@ export default function UserCard({
           </div>
         ) : null}
       </ul>
+      <button onClick={() => setEdit(true)}>Edit</button>
     </div>
   );
 }
