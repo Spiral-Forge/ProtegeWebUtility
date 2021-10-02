@@ -1,7 +1,8 @@
 import React from "react";
 import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+// import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function UserCard({
   user,
@@ -10,8 +11,6 @@ export default function UserCard({
   setSearchedPeerList,
   setEdit,
 }) {
-  const auth = getAuth();
-
   const viewPeer = async (id) => {
     const res = await peerData(id);
     console.log(res);
@@ -49,7 +48,9 @@ export default function UserCard({
   };
 
   const resetPass = () => {
-    sendPasswordResetEmail(auth, user.email)
+    firebase
+      .auth()
+      .sendPasswordResetEmail(user.email)
       .then(() => {
         console.log("yoyoyo");
       })
@@ -100,11 +101,13 @@ export default function UserCard({
                         justifyContent: "center",
                       }}
                     >
-                      <button onClick={() => removePeer(id)}>
-                        Remove Peer
-                      </button>
-                      <button onClick={() => viewPeer(id)}>View Peer</button>
-                      <button onClick={resetPass}>Reset Password</button>
+                      <div className="cta-btns">
+                        <button onClick={() => removePeer(id)}>
+                          Remove Peer
+                        </button>
+                        <button onClick={() => viewPeer(id)}>View Peer</button>
+                        <button onClick={resetPass}>Reset Password</button>
+                      </div>
                     </div>
                   </div>
                 ))}
