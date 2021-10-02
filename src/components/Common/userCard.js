@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function UserCard({
   user,
@@ -9,6 +10,8 @@ export default function UserCard({
   setSearchedPeerList,
   setEdit,
 }) {
+  const auth = getAuth();
+
   const viewPeer = async (id) => {
     const res = await peerData(id);
     console.log(res);
@@ -43,6 +46,18 @@ export default function UserCard({
     const res = await peerData(uId);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
+  };
+
+  const resetPass = () => {
+    sendPasswordResetEmail(auth, user.email)
+      .then(() => {
+        console.log("yoyoyo");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
 
   return (
@@ -89,6 +104,7 @@ export default function UserCard({
                         Remove Peer
                       </button>
                       <button onClick={() => viewPeer(id)}>View Peer</button>
+                      <button onClick={resetPass}>Reset Password</button>
                     </div>
                   </div>
                 ))}
