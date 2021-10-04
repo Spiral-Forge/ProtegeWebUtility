@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
 
@@ -11,9 +11,16 @@ export default function UserCard({
   setSearchedPeerList,
   setEdit,
 }) {
+  const [error, setError] = useState("");
+
   const viewPeer = async (id) => {
+    setError("");
     const res = await peerData(id);
-    console.log(res);
+    if (!res) {
+      setError("this user does not exist");
+      return;
+    }
+
     setSearchedPeerList([res]);
   };
 
@@ -26,6 +33,7 @@ export default function UserCard({
       const data = a.data();
       return { ...data };
     });
+
     return peer[0];
   };
 
@@ -106,16 +114,23 @@ export default function UserCard({
                           Remove Peer
                         </button>
                         <button onClick={() => viewPeer(id)}>View Peer</button>
-                        <button onClick={resetPass}>Reset Password</button>
                       </div>
                     </div>
                   </div>
                 ))}
+              {error && (
+                <p style={{ backgroundColor: "#ff00002e", padding: 5 }}>
+                  {error}
+                </p>
+              )}
+              <div style={{ marginTop: 20 }} className="cta-btns">
+                <button onClick={resetPass}>Reset Password</button>
+                <button onClick={() => setEdit(true)}>Edit Details</button>
+              </div>
             </li>
           </div>
         ) : null}
       </ul>
-      <button onClick={() => setEdit(true)}>Edit</button>
     </div>
   );
 }
