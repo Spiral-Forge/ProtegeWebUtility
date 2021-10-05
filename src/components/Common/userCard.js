@@ -37,19 +37,30 @@ export default function UserCard({
     return peer[0];
   };
 
+  const removePeerId = async (id) => {
+    const uIdx = user.peerID.indexOf(id);
+    const pId = user.peerID.splice(uIdx, 1)[0];
+    const uId = user.id;
+    delete user.id;
+    console.log(user);
+    await db.collection("Users").doc(uId).update(user);
+    const res = await peerData(uId);
+    setSearchedUserList([res]);
+  };
+
   const removePeer = async (id) => {
     const peer = await peerData(id);
+    if (!peer) {
+      removePeerId(id);
+      return;
+    }
     const uIdx = user.peerID.indexOf(id);
     const pIdx = peer.peerID.indexOf(user.id);
-
     const pId = user.peerID.splice(uIdx, 1)[0];
     const uId = peer.peerID.splice(pIdx, 1)[0];
-
     delete user.id;
-
     await db.collection("Users").doc(uId).update(user);
     await db.collection("Users").doc(pId).update(peer);
-
     const res = await peerData(uId);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
