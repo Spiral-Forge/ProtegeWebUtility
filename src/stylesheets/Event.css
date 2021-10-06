@@ -1,0 +1,185 @@
+.event--container {
+  padding: 1rem 1rem 0 1rem;
+  background-color: #eeeeee;
+  min-height: 92vh;
+}
+
+.event--content {
+  width: 95%;
+  margin: auto;
+  height: max-content;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.event--filter {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.Dropdown-root {
+  width: max-content;
+}
+
+.Dropdown-control {
+  background-color: transparent;
+  padding: 0px;
+  margin-right: 8px;
+  border: none !important;
+}
+
+.Dropdown-arrow-wrapper {
+  display: none;
+}
+
+.Dropdown-placeholder {
+  font-size: 1.7rem;
+  color: rgb(0, 94, 200);
+}
+
+.Dropdown-menu {
+  width: 150px;
+}
+
+.event--filter > h2 {
+  text-align: left;
+  margin: 0;
+  margin-top: 1px;
+}
+
+.left {
+  width: 80%;
+}
+
+.event--cards {
+  padding-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.right {
+  width: 20%;
+}
+
+.event--card {
+  background-color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 260px;
+  height: 340px;
+  text-align: left;
+}
+
+.img {
+  height: 150px;
+  background-color: gray;
+  position: relative;
+}
+
+.img > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.icons {
+  position: absolute;
+  display: flex;
+  gap: 5px;
+  top: 8%;
+  right: 5%;
+}
+
+.icons span {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.513);
+  color: rgb(206, 206, 206);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icons span:hover {
+  background-color: rgba(0, 0, 0, 0.733);
+  color: white;
+}
+
+.icon {
+  font-size: 13px;
+}
+
+.info {
+  padding: 10px !important;
+}
+
+.info p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.1;
+}
+
+.head > p {
+  font-weight: 600;
+}
+
+.more > p {
+  color: gray;
+  font-size: 13px;
+}
+
+.desc {
+  margin-top: 10px;
+}
+
+.event--form {
+  padding: 15px;
+  margin-left: auto;
+  background-color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form input,
+.form textarea {
+  padding: 0.3rem 0.6rem;
+  order: none;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid rgb(167, 167, 167);
+}
+
+.form textarea {
+  min-height: 100px;
+}
+
+.submit {
+  margin-top: 15px;
+}
+
+.submit button {
+  padding: 0.3rem 0.6rem;
+  font-size: 1.1rem;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+  background-color: rgb(34, 34, 34);
+  color: white;
+}
