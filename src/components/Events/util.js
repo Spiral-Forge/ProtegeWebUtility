@@ -41,3 +41,10 @@ export const getUnapprovedEvent = async () => {
 
   return myData;
 };
+
+export const createEvent = async (event) => {
+  const newEvent = { ...event, approved: true };
+  delete newEvent.id;
+
+  await db.collection("Events").add(newEvent);
+};

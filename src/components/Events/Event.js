@@ -44,7 +44,7 @@ export default function Event() {
           </div>
         </div>
         <div className="right">
-          <EventForm />
+          <EventForm getEvent={getEvent} />
         </div>
       </div>
     </div>

@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import "../../stylesheets/Event.css";
+import { createEvent } from "./util";
 
-export default function EventForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    date: "",
-    url: "",
-    venue: "",
-    time: "",
-    link: "",
-    description: "",
-  });
+const emptyForm = {
+  name: "",
+  date: "",
+  url: "",
+  venue: "",
+  time: "",
+  link: "",
+  description: "",
+};
+
+export default function EventForm({ getEvent }) {
+  const [formData, setFormData] = useState(emptyForm);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,13 +24,15 @@ export default function EventForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    createEvent(formData);
+    getEvent();
   };
 
   return (
     <div className="event--form">
       <form onSubmit={handleSubmit} className="form">
         <input
+          required
           type="text"
           name="name"
           placeholder="Name"
@@ -35,6 +40,7 @@ export default function EventForm() {
           onChange={handleChange}
         />
         <input
+          required
           type="text"
           name="date"
           placeholder="Date"
@@ -42,6 +48,7 @@ export default function EventForm() {
           onChange={handleChange}
         />
         <input
+          required
           type="text"
           name="url"
           placeholder="Url"
@@ -49,6 +56,7 @@ export default function EventForm() {
           onChange={handleChange}
         />
         <input
+          required
           type="text"
           name="venue"
           placeholder="Venue"
@@ -56,6 +64,7 @@ export default function EventForm() {
           onChange={handleChange}
         />
         <input
+          required
           type="text"
           name="time"
           placeholder="Time"
@@ -63,6 +72,7 @@ export default function EventForm() {
           onChange={handleChange}
         />
         <input
+          required
           type="text"
           name="link"
           placeholder="Link"
@@ -70,6 +80,7 @@ export default function EventForm() {
           onChange={handleChange}
         />
         <textarea
+          required
           type="text"
           name="description"
           placeholder="Description"
