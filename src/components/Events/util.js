@@ -45,6 +45,9 @@ export const getUnapprovedEvent = async () => {
 export const createEvent = async (event) => {
   const newEvent = { ...event, approved: true };
   delete newEvent.id;
-
   await db.collection("Events").add(newEvent);
+};
+
+export const deleteEvent = async (id) => {
+  await db.collection("Events").doc(id).delete();
 };

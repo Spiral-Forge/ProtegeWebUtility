@@ -40,7 +40,9 @@ export default function Event() {
           </div>
           <div className="event--cards">
             {!!events.length &&
-              events.map((event) => <EventCard event={event} />)}
+              events.map((event) => (
+                <EventCard event={event} getEvent={getEvent} />
+              ))}
           </div>
         </div>
         <div className="right">

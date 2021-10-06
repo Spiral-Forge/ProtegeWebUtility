@@ -3,8 +3,14 @@ import "../../stylesheets/Event.css";
 import { BsPencil } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GoCheck } from "react-icons/go";
+import { deleteEvent } from "./util";
 
-export default function EventCard({ event }) {
+export default function EventCard({ event, getEvent }) {
+  const handleDelete = () => {
+    deleteEvent(event.id);
+    getEvent();
+  };
+
   return (
     <div className="event--card">
       <div className="img">
@@ -13,7 +19,7 @@ export default function EventCard({ event }) {
           <span>
             <BsPencil className="icon" />
           </span>
-          <span>
+          <span onClick={handleDelete}>
             <RiDeleteBin5Line className="icon" />
           </span>
           {!event.approved && (
