@@ -10,6 +10,7 @@ const evtOp = ["All", "Approved", "Unapproved"];
 export default function Event() {
   const [evt, setEvt] = useState({ label: "All", value: "All" });
   const [events, setEvents] = useState([]);
+  const [edit, setEdit] = useState();
 
   useEffect(() => {
     getEvent();
@@ -41,12 +42,16 @@ export default function Event() {
           <div className="event--cards">
             {!!events.length &&
               events.map((event) => (
-                <EventCard event={event} getEvent={getEvent} />
+                <EventCard
+                  event={event}
+                  getEvent={getEvent}
+                  setEdit={setEdit}
+                />
               ))}
           </div>
         </div>
         <div className="right">
-          <EventForm getEvent={getEvent} />
+          <EventForm getEvent={getEvent} edit={edit} setEdit={setEdit} />
         </div>
       </div>
     </div>

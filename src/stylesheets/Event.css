@@ -171,6 +171,8 @@
 
 .submit {
   margin-top: 15px;
+  display: flex;
+  gap: 5px;
 }
 
 .submit button {
@@ -180,6 +182,22 @@
   border: none;
   outline: none;
   border-radius: 3px;
-  background-color: rgb(34, 34, 34);
+}
+
+.submit button:first-child {
+  background-color: rgb(236, 236, 236);
+  color: rgb(42, 42, 42);
+}
+
+.submit button:first-child:hover {
+  background-color: rgb(219, 219, 219);
+}
+
+.submit button:last-child {
+  background-color: rgb(44, 44, 44);
   color: white;
+}
+
+.submit button:last-child:hover {
+  background-color: rgb(27, 27, 27);
 }

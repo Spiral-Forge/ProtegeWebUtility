@@ -5,7 +5,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { GoCheck } from "react-icons/go";
 import { deleteEvent } from "./util";
 
-export default function EventCard({ event, getEvent }) {
+export default function EventCard({ event, getEvent, setEdit }) {
   const handleDelete = () => {
     deleteEvent(event.id);
     getEvent();
@@ -16,7 +16,7 @@ export default function EventCard({ event, getEvent }) {
       <div className="img">
         <img src={event.url} alt="" />
         <div className="icons">
-          <span>
+          <span onClick={() => setEdit(event)}>
             <BsPencil className="icon" />
           </span>
           <span onClick={handleDelete}>

@@ -48,6 +48,13 @@ export const createEvent = async (event) => {
   await db.collection("Events").add(newEvent);
 };
 
+export const updateEvent = async (event) => {
+  const newEvent = { ...event };
+  delete newEvent.id;
+  console.log(newEvent);
+  await db.collection("Events").doc(event.id).update(newEvent);
+};
+
 export const deleteEvent = async (id) => {
   await db.collection("Events").doc(id).delete();
 };

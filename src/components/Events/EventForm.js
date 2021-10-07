@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../stylesheets/Event.css";
-import { createEvent } from "./util";
+import { createEvent, updateEvent } from "./util";
 
 const emptyForm = {
   name: "",
@@ -12,8 +12,14 @@ const emptyForm = {
   description: "",
 };
 
-export default function EventForm({ getEvent }) {
+export default function EventForm({ getEvent, edit, setEdit }) {
   const [formData, setFormData] = useState(emptyForm);
+
+  useEffect(() => {
+    if (!!edit) {
+      setFormData(edit);
+    }
+  }, [edit]);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,7 +30,14 @@ export default function EventForm({ getEvent }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    createEvent(formData);
+
+    if (!!edit) {
+      updateEvent(formData);
+      setEdit();
+    } else {
+      createEvent(formData);
+    }
+    setFormData(emptyForm);
     getEvent();
   };
 
@@ -84,12 +97,22 @@ export default function EventForm({ getEvent }) {
           type="text"
           name="description"
           placeholder="Description"
-          value={formData.desc}
+          value={formData.description}
           onChange={handleChange}
         />
 
         <div className="submit">
-          <button>Create Event</button>
+          {!!edit && (
+            <button
+              onClick={() => {
+                setEdit();
+                setFormData(emptyForm);
+              }}
+            >
+              Cancel
+            </button>
+          )}
+          <button>{!edit ? "Create Event" : "Update Event"}</button>
         </div>
       </form>
     </div>
