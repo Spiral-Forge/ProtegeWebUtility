@@ -58,3 +58,10 @@ export const updateEvent = async (event) => {
 export const deleteEvent = async (id) => {
   await db.collection("Events").doc(id).delete();
 };
+
+export const approveEvent = async (event) => {
+  const newEvent = { ...event, approved: true };
+  delete newEvent.id;
+  console.log(newEvent);
+  await db.collection("Events").doc(event.id).update(newEvent);
+};

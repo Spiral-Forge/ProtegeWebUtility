@@ -3,7 +3,7 @@ import "../../stylesheets/Event.css";
 import { BsPencil } from "react-icons/bs";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { GoCheck } from "react-icons/go";
-import { deleteEvent } from "./util";
+import { deleteEvent, approveEvent } from "./util";
 
 export default function EventCard({ event, getEvent, setEdit }) {
   const handleDelete = () => {
@@ -23,7 +23,12 @@ export default function EventCard({ event, getEvent, setEdit }) {
             <RiDeleteBin5Line className="icon" />
           </span>
           {!event.approved && (
-            <span>
+            <span
+              onClick={() => {
+                approveEvent(event);
+                getEvent();
+              }}
+            >
               <GoCheck className="icon" />
             </span>
           )}
