@@ -19,27 +19,27 @@
   margin-bottom: 1rem;
 }
 
-.Dropdown-root {
+.event--filter .Dropdown-root {
   width: max-content;
 }
 
-.Dropdown-control {
+.event--filter .Dropdown-control {
   background-color: transparent;
   padding: 0px;
   margin-right: 8px;
   border: none !important;
 }
 
-.Dropdown-arrow-wrapper {
+.event--filter .Dropdown-arrow-wrapper {
   display: none;
 }
 
-.Dropdown-placeholder {
+.event--filter .Dropdown-placeholder {
   font-size: 1.7rem;
   color: rgb(0, 94, 200);
 }
 
-.Dropdown-menu {
+.event--filter .Dropdown-menu {
   width: 150px;
 }
 
