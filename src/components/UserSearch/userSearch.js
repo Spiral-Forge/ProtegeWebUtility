@@ -100,9 +100,11 @@ export default function UserSearch() {
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
         {userList.map((user) => (
+          
           <div
             onClick={() => {
               setSearchedUserList([user]);
+              setSearchedPeerList([]);
               window.scrollTo(0, 0);
             }}
           >
@@ -131,6 +133,7 @@ export default function UserSearch() {
               <UserCard
                 isHomeDisplay
                 user={user}
+                setSearchedUserList={setSearchedUserList}
                 setSearchedPeerList={setSearchedPeerList}
               />
             );

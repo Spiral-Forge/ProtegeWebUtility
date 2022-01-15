@@ -4,6 +4,7 @@
 
 .userForm {
   width: 350px;
+  min-width: 150px;
   padding: 1rem;
   background-color: #f3f3f3;
   text-align: center;
