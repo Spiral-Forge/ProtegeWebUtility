@@ -34,36 +34,31 @@ export default class AssignmentPage extends Component {
     this.getMenteeList();
     this.getMentorList();
   }
+  
   getMenteeList = async () => {
     // console.log("im printing")
     await db
-      .collection("Users")
+      .collection("users")
       .where("post", "==", "Mentee")
       .get()
       .then(async (querySnapshot) => {
         var mydata = querySnapshot.docs.map((a) => {
-          // console.log("a is ")
-          // console.log(a)
+
           const data = a.data();
           const id = a.id;
           return { id, ...data };
         });
-        var mydata2 = mydata.filter((mentee) => {
-          console.log(
-            "true of false?",
-            mentee.cohort != null && mentee.cohort == "January 2021"
-          );
-          return mentee.cohort != null && mentee.cohort == "January 2021";
-        });
-        console.log("data after filtering", mydata2);
-        this.setState({ menteeList: mydata2 });
+
+        console.log("data after filtering", mydata);
+        this.setState({ menteeList: mydata });
       });
   };
+
 
   getMentorList = async () => {
     // console.log("im printing")
     await db
-      .collection("Users")
+      .collection("users")
       .where("post", "==", "Mentor")
       .get()
       .then((querySnapshot) => {
@@ -75,24 +70,11 @@ export default class AssignmentPage extends Component {
           const id = a.id;
           return { id, ...data };
         });
-        var mydata2 = mydata.filter((mentee) => {
-          console.log(
-            "true of false?",
-            mentee.cohort != null && mentee.cohort == "January 2021"
-          );
-          return mentee.cohort != null && mentee.cohort == "January 2021";
-        });
-        console.log("mentor data", mydata2);
-        this.setState({ mentorList: mydata2 });
+        this.setState({ mentorList: mydata });
       });
   };
 
   saveAssignment = async (mentor) => {
-    //console.log(mentor)
-    //console.log(this.state.selectedMentee)
-    //var currentMenteeWithoutID=
-    // console.log(mentor.id)
-    // console.log(this.state.selectedMentee)
     var menteePeerIDCopy = this.state.selectedMentee.peerID.slice();
     menteePeerIDCopy.push(mentor.id);
     //console.log(peerIDCopy)
@@ -100,7 +82,6 @@ export default class AssignmentPage extends Component {
       this.state.selectedMentee
     );
     var menteeObj = { ...currentMenteeWithoutID, peerID: menteePeerIDCopy };
-    // console.log(objtobeset)
     try {
       // throw "Custom Error 1";
       await db
@@ -115,7 +96,6 @@ export default class AssignmentPage extends Component {
     mentorPeerIDCopy.push(this.state.selectedMentee.id);
     const currentMentorWithoutID = (({ id, ...o }) => o)(mentor);
     var mentorObj = { ...currentMentorWithoutID, peerID: mentorPeerIDCopy };
-    //console.log(mentor)
     try {
       await db.collection("Users").doc(mentor.id).set(mentorObj);
       notify(
