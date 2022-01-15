@@ -19,6 +19,12 @@ export default function PeerCard({ user, isHomeDisplay }) {
             return domain + ", ";
           })}
         </li>
+        <li className="list-group-item">
+          Languages:{" "}
+          {user.languages.map((lang) => {
+            return lang + ", ";
+          })}
+        </li>
         {isHomeDisplay ? (
           <div>
             <li className="list-group-item">Post: {user.post}</li>
