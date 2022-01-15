@@ -20,7 +20,7 @@ export default class EventUpdateForm extends Component {
       name: event.name,
       date: event.date,
       description: event.description,
-      url: event.url,
+      imageUrl: event.imageUrl,
       venue: event.venue,
       time: event.time,
       link: event.link,

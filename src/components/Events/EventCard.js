@@ -14,7 +14,7 @@ export default function EventCard({ event, getEvent, setEdit }) {
   return (
     <div className="event--card">
       <div className="img">
-        <img src={event.url} alt="" />
+        <img src={event.imageUrl} alt="" />
         <div className="icons">
           <span onClick={() => setEdit(event)}>
             <BsPencil className="icon" />

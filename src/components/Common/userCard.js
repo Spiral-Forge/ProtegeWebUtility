@@ -43,7 +43,7 @@ export default function UserCard({
     const uId = user.id;
     delete user.id;
     console.log(user);
-    await db.collection("Users").doc(uId).update(user);
+    await db.collection("users").doc(uId).update(user);
     const res = await peerData(uId);
     setSearchedUserList([res]);
   };

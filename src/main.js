@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import AssignmentPage from "./components/AssignmentPortal/assignmentPage";
-import EventsPage from "./components/EventPortal/eventsPage";
 import ResourcesPage from "./components/ResourcePortal/resourcesPage";
 import UserSearch from "./components/UserSearch/userSearch";
 import { Router, Switch, Route } from "react-router-dom";

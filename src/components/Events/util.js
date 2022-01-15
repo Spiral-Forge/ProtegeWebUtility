@@ -2,7 +2,7 @@ import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
 
 export const getAllEvent = async () => {
-  const data = await db.collection("Events").get();
+  const data = await db.collection("events").get();
 
   var myData = data.docs.map((a) => {
     const data = a.data();
@@ -15,7 +15,7 @@ export const getAllEvent = async () => {
 
 export const getApprovedEvent = async () => {
   const data = await db
-    .collection("Events")
+    .collection("events")
     .where("approved", "==", true)
     .get();
 
@@ -29,7 +29,7 @@ export const getApprovedEvent = async () => {
 
 export const getUnapprovedEvent = async () => {
   const data = await db
-    .collection("Events")
+    .collection("events")
     .where("approved", "==", false)
     .get();
 
@@ -45,23 +45,23 @@ export const getUnapprovedEvent = async () => {
 export const createEvent = async (event) => {
   const newEvent = { ...event, approved: true };
   delete newEvent.id;
-  await db.collection("Events").add(newEvent);
+  await db.collection("events").add(newEvent);
 };
 
 export const updateEvent = async (event) => {
   const newEvent = { ...event };
   delete newEvent.id;
   console.log(newEvent);
-  await db.collection("Events").doc(event.id).update(newEvent);
+  await db.collection("events").doc(event.id).update(newEvent);
 };
 
 export const deleteEvent = async (id) => {
-  await db.collection("Events").doc(id).delete();
+  await db.collection("events").doc(id).delete();
 };
 
 export const approveEvent = async (event) => {
   const newEvent = { ...event, approved: true };
   delete newEvent.id;
   console.log(newEvent);
-  await db.collection("Events").doc(event.id).update(newEvent);
+  await db.collection("events").doc(event.id).update(newEvent);
 };
