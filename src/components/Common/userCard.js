@@ -7,6 +7,7 @@ export default function UserCard({
   isHomeDisplay,
   setSearchedUserList,
   setSearchedPeerList,
+  setEdit,
 }) {
   const viewPeer = async (id) => {
     const res = await peerData(id);
@@ -39,7 +40,6 @@ export default function UserCard({
     await db.collection("users").doc(uId).update(user);
     await db.collection("users").doc(pId).update(peer);
 
-
     const res = await peerData(uId);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
@@ -53,9 +53,9 @@ export default function UserCard({
         <li className="list-group-item">Year: {user.year}</li>
         <li className="list-group-item">Branch: {user.branch}</li>
         <li className="list-group-item">Email: {user.email}</li>
-        <li className="list-group-item">Github: {user.githubURL}</li>
-        <li className="list-group-item">LinkedIn: {user.linkedInURL}</li>
-        <li className="list-group-item">Contact: {user.contact}</li>
+        <li className="list-group-item">Github: {user.githubUrl}</li>
+        <li className="list-group-item">LinkedIn: {user.linkedInUrl}</li>
+        <li className="list-group-item">Contact: {user.phoneNo}</li>
         <li className="list-group-item">Hosteller: {user.hosteller}</li>
         <li className="list-group-item">
           Domains:{" "}
@@ -96,6 +96,7 @@ export default function UserCard({
           </div>
         ) : null}
       </ul>
+      <button onClick={() => setEdit(true)}>Edit</button>
     </div>
   );
 }

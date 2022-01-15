@@ -36,35 +36,29 @@ export default class AssignmentPage extends Component {
   }
   
   getMenteeList = async () => {
-    // console.log("im printing")
     await db
       .collection("users")
       .where("post", "==", "Mentee")
       .get()
       .then(async (querySnapshot) => {
         var mydata = querySnapshot.docs.map((a) => {
-
           const data = a.data();
           const id = a.id;
           return { id, ...data };
         });
-
-        console.log("data after filtering", mydata);
         this.setState({ menteeList: mydata });
       });
   };
 
 
+
   getMentorList = async () => {
-    // console.log("im printing")
     await db
       .collection("users")
       .where("post", "==", "Mentor")
       .get()
       .then((querySnapshot) => {
         var mydata = querySnapshot.docs.map((a) => {
-          // console.log("a is ")
-          // console.log(a)
           console.log(mydata);
           const data = a.data();
           const id = a.id;

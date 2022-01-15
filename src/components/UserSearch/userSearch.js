@@ -13,6 +13,7 @@ import {
   searchByEmailAndPhone,
   searchByNameAndEmailAndPhone,
 } from "./search";
+import EditUser from "../Common/editUser";
 
 const db = firebase.firestore();
 
@@ -20,6 +21,7 @@ export default function UserSearch() {
   const [userList, setUserList] = useState([]);
   const [searchedUserList, setSearchedUserList] = useState([]);
   const [searchedPeerList, setSearchedPeerList] = useState([]);
+  const [edit, setEdit] = useState(false);
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -127,19 +129,28 @@ export default function UserSearch() {
             gap: "20px",
           }}
         >
-          {searchedUserList.map((user) => {
-            return (
-              <UserCard
-                isHomeDisplay
-                user={user}
-                setSearchedUserList={setSearchedUserList}
-                setSearchedPeerList={setSearchedPeerList}
-              />
-            );
-          })}
+          {!edit &&
+            searchedUserList.map((user) => {
+              return (
+                <UserCard
+                  isHomeDisplay
+                  user={user}
+                  setSearchedUserList={setSearchedUserList}
+                  setSearchedPeerList={setSearchedPeerList}
+                  setEdit={setEdit}
+                />
+              );
+            })}
           {searchedPeerList.map((user) => {
             return <PeerCard isHomeDisplay user={user} />;
           })}
+          {edit && (
+            <EditUser
+              user={searchedUserList[0]}
+              setEdit={setEdit}
+              setSearchedUserList={setSearchedUserList}
+            />
+          )}
         </ul>
       </div>
     </div>
