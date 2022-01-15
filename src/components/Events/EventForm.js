@@ -5,7 +5,7 @@ import { createEvent, updateEvent } from "./util";
 const emptyForm = {
   name: "",
   date: "",
-  url: "",
+  imageUrl: "",
   venue: "",
   time: "",
   link: "",
@@ -63,9 +63,9 @@ export default function EventForm({ getEvent, edit, setEdit }) {
         <input
           required
           type="text"
-          name="url"
-          placeholder="Url"
-          value={formData.url}
+          name="imageUrl"
+          placeholder="imageUrl"
+          value={formData.imageUrl}
           onChange={handleChange}
         />
         <input

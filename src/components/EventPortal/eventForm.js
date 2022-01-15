@@ -7,31 +7,11 @@ export default class EventForm extends Component {
       name: "",
       date: "",
       description: "",
-      url: "",
+      imageUrl: "",
       venue: "",
       time: "",
       link: "",
     };
-  }
-
-  componentDidUpdate() {
-    //console.log("is this getting preinted?")
-    const { event } = this.props;
-    //console.log(this.props)
-    // if(event){
-    //     console.log("coming here")
-    // }else{
-    //     console.log("coming here 2")
-    // }
-    // this.setState({
-    //     name:event.name,
-    //     date:event.date,
-    //     description:event.description,
-    //     url:event.url,
-    //     venue:event.venue,
-    //     time:event.time,
-    //     link:event.link
-    // })
   }
   componentWillReceiveProps() {
     console.log(this.props);
@@ -48,14 +28,14 @@ export default class EventForm extends Component {
       name: "",
       date: "",
       description: "",
-      url: "",
+      imageUrl: "",
       venue: "",
       time: "",
       link: "",
     });
   };
   render() {
-    const { name, date, venue, url, time, description, link } = this.state;
+    const { name, date, venue, imageUrl, time, description, link } = this.state;
     //const {event}=this.props
 
     return (
@@ -98,9 +78,9 @@ export default class EventForm extends Component {
             <input
               className="form-control"
               type="text"
-              id="url"
-              name="url"
-              value={url}
+              id="imageUrl"
+              name="imageUrl"
+              value={imageUrl}
               onChange={this.handleChange}
             />
             <br />
