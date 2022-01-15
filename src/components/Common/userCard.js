@@ -89,6 +89,7 @@ export default function UserCard({
                       </button>
                       <button onClick={() => viewPeer(id)}>View Peer</button>
                     </div>
+
                   </div>
                 ))}
             </li>

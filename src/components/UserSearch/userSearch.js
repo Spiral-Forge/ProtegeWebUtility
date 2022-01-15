@@ -100,6 +100,7 @@ export default function UserSearch() {
           <input className="btn btn-primary" type="submit" value="Submit" />
         </form>
         {userList.map((user) => (
+          
           <div
             onClick={() => {
               setSearchedUserList([user]);
