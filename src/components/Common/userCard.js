@@ -39,6 +39,7 @@ export default function UserCard({
     await db.collection("users").doc(uId).update(user);
     await db.collection("users").doc(pId).update(peer);
 
+
     const res = await peerData(uId);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
@@ -89,7 +90,6 @@ export default function UserCard({
                       </button>
                       <button onClick={() => viewPeer(id)}>View Peer</button>
                     </div>
-
                   </div>
                 ))}
             </li>

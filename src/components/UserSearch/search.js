@@ -1,7 +1,7 @@
 import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
 
-export const searchByName = async (name) => {
+const advSearch = async (name) => {
   let list = await db
     .collection("users")
     .where("name", ">=", name)
@@ -14,6 +14,16 @@ export const searchByName = async (name) => {
   });
   return mydata;
 };
+
+export const searchByName = async (name) => {
+  const uppercase = name.charAt(0).toUpperCase() + name.slice(1);
+  const lowercase = name.charAt(0).toLowerCase() + name.slice(1);
+  const up = await advSearch(uppercase);
+  const low = await advSearch(lowercase);
+  const mydata = up.concat(low);
+  return mydata;
+};
+
 
 export const searchByEmail = async (email) => {
   let list = await db.collection("users").where("email", "==", email).get();

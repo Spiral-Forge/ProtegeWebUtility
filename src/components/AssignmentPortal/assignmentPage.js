@@ -29,10 +29,12 @@ export default class AssignmentPage extends Component {
       selectedMentor: {},
     };
   }
+
   componentDidMount() {
     this.getMenteeList();
     this.getMentorList();
   }
+  
   getMenteeList = async () => {
     // console.log("im printing")
     await db
@@ -41,15 +43,17 @@ export default class AssignmentPage extends Component {
       .get()
       .then(async (querySnapshot) => {
         var mydata = querySnapshot.docs.map((a) => {
+
           const data = a.data();
           const id = a.id;
           return { id, ...data };
         });
+
         console.log("data after filtering", mydata);
         this.setState({ menteeList: mydata });
       });
-
   };
+
 
   getMentorList = async () => {
     // console.log("im printing")
@@ -71,11 +75,6 @@ export default class AssignmentPage extends Component {
   };
 
   saveAssignment = async (mentor) => {
-    //console.log(mentor)
-    //console.log(this.state.selectedMentee)
-    //var currentMenteeWithoutID=
-    // console.log(mentor.id)
-    // console.log(this.state.selectedMentee)
     var menteePeerIDCopy = this.state.selectedMentee.peerID.slice();
     menteePeerIDCopy.push(mentor.id);
     //console.log(peerIDCopy)
@@ -83,17 +82,40 @@ export default class AssignmentPage extends Component {
       this.state.selectedMentee
     );
     var menteeObj = { ...currentMenteeWithoutID, peerID: menteePeerIDCopy };
-    // console.log(objtobeset)
-    await db
-      .collection("users")
-      .doc(this.state.selectedMentee.id)
-      .set(menteeObj);
+    try {
+      // throw "Custom Error 1";
+      await db
+        .collection("users")
+        .doc(this.state.selectedMentee.id)
+        .set(menteeObj);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
     var mentorPeerIDCopy = mentor.peerID.slice();
     mentorPeerIDCopy.push(this.state.selectedMentee.id);
     const currentMentorWithoutID = (({ id, ...o }) => o)(mentor);
     var mentorObj = { ...currentMentorWithoutID, peerID: mentorPeerIDCopy };
-    //console.log(mentor)
-    await db.collection("users").doc(mentor.id).set(mentorObj);
+    try {
+      await db.collection("users").doc(mentor.id).set(mentorObj);
+      notify(
+        menteeObj.token,
+        "Mentor Assigned",
+        `${mentorObj.name} is assigned to you as a mentor`
+      );
+      notify(
+        mentorObj.token,
+        "Mentee Assigned",
+        `${menteeObj.name} is assigned to you as a mentee`
+      );
+    } catch (error) {
+      await db
+        .collection("users")
+        .doc(this.state.selectedMentee.id)
+        .set(currentMenteeWithoutID);
+      console.log(error);
+    }
+
     await this.getMenteeList();
     await this.getMentorList();
     this.setState({
@@ -102,17 +124,6 @@ export default class AssignmentPage extends Component {
       mentorProfileOpened: false,
       filteredMentorList: [],
     });
-
-    notify(
-      menteeObj.token,
-      "Mentor Assigned",
-      `${mentorObj.name} is assigned to you as a mentor`
-    );
-    notify(
-      mentorObj.token,
-      "Mentee Assigned",
-      `${menteeObj.name} is assigned to you as a mentee`
-    );
   };
 
   openMenteeProfile = (item) => {
@@ -202,7 +213,6 @@ export default class AssignmentPage extends Component {
     );
     return (
       <div className="assignmentDiv" style={{ width: "100%" }}>
-        {/* <button onClick={this.addCohort}>ADD COHORT</button> */}
         <MenteeList
           menteeList={this.state.menteeList}
           openMenteeProfile={this.openMenteeProfile}
