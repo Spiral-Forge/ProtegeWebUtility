@@ -98,7 +98,7 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
       languages: arrStr(lang),
     };
 
-    await db.collection("Users").doc(user.id).update(obj);
+    await db.collection("users").doc(user.id).update(obj);
 
     const newUser = { ...obj, id: user.id };
 
