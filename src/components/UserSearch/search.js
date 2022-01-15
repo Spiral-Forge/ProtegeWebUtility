@@ -3,7 +3,7 @@ const db = firebase.firestore();
 
 const advSearch = async (name) => {
   let list = await db
-    .collection("Users")
+    .collection("users")
     .where("name", ">=", name)
     .where("name", "<=", name + "\uf8ff")
     .get();

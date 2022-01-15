@@ -85,7 +85,7 @@ export default class AssignmentPage extends Component {
     try {
       // throw "Custom Error 1";
       await db
-        .collection("Users")
+        .collection("users")
         .doc(this.state.selectedMentee.id)
         .set(menteeObj);
     } catch (error) {
@@ -97,7 +97,7 @@ export default class AssignmentPage extends Component {
     const currentMentorWithoutID = (({ id, ...o }) => o)(mentor);
     var mentorObj = { ...currentMentorWithoutID, peerID: mentorPeerIDCopy };
     try {
-      await db.collection("Users").doc(mentor.id).set(mentorObj);
+      await db.collection("users").doc(mentor.id).set(mentorObj);
       notify(
         menteeObj.token,
         "Mentor Assigned",
@@ -110,7 +110,7 @@ export default class AssignmentPage extends Component {
       );
     } catch (error) {
       await db
-        .collection("Users")
+        .collection("users")
         .doc(this.state.selectedMentee.id)
         .set(currentMenteeWithoutID);
       console.log(error);
