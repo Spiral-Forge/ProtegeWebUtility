@@ -26,7 +26,7 @@ export default function UserCard({
 
   const peerData = async (id) => {
     var snap = await db
-      .collection("Users")
+      .collection("users")
       .where(firebase.firestore.FieldPath.documentId(), "==", id)
       .get();
     const peer = snap.docs.map((a) => {
@@ -59,8 +59,10 @@ export default function UserCard({
     const pId = user.peerID.splice(uIdx, 1)[0];
     const uId = peer.peerID.splice(pIdx, 1)[0];
     delete user.id;
-    await db.collection("Users").doc(uId).update(user);
-    await db.collection("Users").doc(pId).update(peer);
+    
+    await db.collection("users").doc(uId).update(user);
+    await db.collection("users").doc(pId).update(peer);
+
     const res = await peerData(uId);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
@@ -88,9 +90,9 @@ export default function UserCard({
         <li className="list-group-item">Year: {user.year}</li>
         <li className="list-group-item">Branch: {user.branch}</li>
         <li className="list-group-item">Email: {user.email}</li>
-        <li className="list-group-item">Github: {user.githubURL}</li>
-        <li className="list-group-item">LinkedIn: {user.linkedInURL}</li>
-        <li className="list-group-item">Contact: {user.contact}</li>
+        <li className="list-group-item">Github: {user.githubUrl}</li>
+        <li className="list-group-item">LinkedIn: {user.linkedInUrl}</li>
+        <li className="list-group-item">Contact: {user.phoneNo}</li>
         <li className="list-group-item">Hosteller: {user.hosteller}</li>
         <li className="list-group-item">
           Domains:{" "}
