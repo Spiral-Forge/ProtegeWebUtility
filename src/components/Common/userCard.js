@@ -17,7 +17,7 @@ export default function UserCard({
 
   const peerData = async (id) => {
     var snap = await db
-      .collection("Users")
+      .collection("users")
       .where(firebase.firestore.FieldPath.documentId(), "==", id)
       .get();
     const peer = snap.docs.map((a) => {
@@ -37,8 +37,8 @@ export default function UserCard({
 
     delete user.id;
 
-    await db.collection("Users").doc(uId).update(user);
-    await db.collection("Users").doc(pId).update(peer);
+    await db.collection("users").doc(uId).update(user);
+    await db.collection("users").doc(pId).update(peer);
 
     const res = await peerData(uId);
     setSearchedUserList([res]);
