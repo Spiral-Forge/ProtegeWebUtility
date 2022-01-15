@@ -11,12 +11,18 @@ export default function PeerCard({ user, isHomeDisplay }) {
         <li className="list-group-item">Email: {user.email}</li>
         <li className="list-group-item">Github: {user.githubUrl}</li>
         <li className="list-group-item">LinkedIn: {user.linkedInUrl}</li>
-        <li className="list-group-item">Contact: {user.contact}</li>
+        <li className="list-group-item">Contact: {user.phoneNo}</li>
         <li className="list-group-item">Hosteller: {user.hosteller}</li>
         <li className="list-group-item">
           Domains:{" "}
           {user.domains.map((domain) => {
             return domain + ", ";
+          })}
+        </li>
+        <li className="list-group-item">
+          Languages:{" "}
+          {user.languages.map((lang) => {
+            return lang + ", ";
           })}
         </li>
         {isHomeDisplay ? (

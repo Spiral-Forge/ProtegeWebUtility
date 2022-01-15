@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import firebase from "../Firebase/firebase";
 const db = firebase.firestore();
+
+// import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 export default function UserCard({
   user,
@@ -9,9 +11,16 @@ export default function UserCard({
   setSearchedPeerList,
   setEdit,
 }) {
+  const [error, setError] = useState("");
+
   const viewPeer = async (id) => {
+    setError("");
     const res = await peerData(id);
-    console.log(res);
+    if (!res) {
+      setError("this user does not exist");
+      return;
+    }
+
     setSearchedPeerList([res]);
   };
 
@@ -24,25 +33,53 @@ export default function UserCard({
       const data = a.data();
       return { ...data };
     });
+
     return peer[0];
+  };
+
+  const removePeerId = async (id) => {
+    const uIdx = user.peerID.indexOf(id);
+    const pId = user.peerID.splice(uIdx, 1)[0];
+    const uId = user.id;
+    delete user.id;
+    console.log(user);
+    await db.collection("Users").doc(uId).update(user);
+    const res = await peerData(uId);
+    setSearchedUserList([res]);
   };
 
   const removePeer = async (id) => {
     const peer = await peerData(id);
+    if (!peer) {
+      removePeerId(id);
+      return;
+    }
     const uIdx = user.peerID.indexOf(id);
     const pIdx = peer.peerID.indexOf(user.id);
-
     const pId = user.peerID.splice(uIdx, 1)[0];
     const uId = peer.peerID.splice(pIdx, 1)[0];
-
     delete user.id;
-
+    
     await db.collection("users").doc(uId).update(user);
     await db.collection("users").doc(pId).update(peer);
 
     const res = await peerData(uId);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
+  };
+
+  const resetPass = () => {
+    firebase
+      .auth()
+      .sendPasswordResetEmail(user.email)
+      .then(() => {
+        console.log("yoyoyo");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
 
   return (
@@ -85,18 +122,28 @@ export default function UserCard({
                         justifyContent: "center",
                       }}
                     >
-                      <button onClick={() => removePeer(id)}>
-                        Remove Peer
-                      </button>
-                      <button onClick={() => viewPeer(id)}>View Peer</button>
+                      <div className="cta-btns">
+                        <button onClick={() => removePeer(id)}>
+                          Remove Peer
+                        </button>
+                        <button onClick={() => viewPeer(id)}>View Peer</button>
+                      </div>
                     </div>
                   </div>
                 ))}
+              {error && (
+                <p style={{ backgroundColor: "#ff00002e", padding: 5 }}>
+                  {error}
+                </p>
+              )}
+              <div style={{ marginTop: 20 }} className="cta-btns">
+                <button onClick={resetPass}>Reset Password</button>
+                <button onClick={() => setEdit(true)}>Edit Details</button>
+              </div>
             </li>
           </div>
         ) : null}
       </ul>
-      <button onClick={() => setEdit(true)}>Edit</button>
     </div>
   );
 }
