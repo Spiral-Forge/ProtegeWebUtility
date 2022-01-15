@@ -3,7 +3,7 @@ const db = firebase.firestore();
 
 export const searchByName = async (name) => {
   let list = await db
-    .collection("Users")
+    .collection("users")
     .where("name", ">=", name)
     .where("name", "<=", name + "\uf8ff")
     .get();
@@ -16,7 +16,7 @@ export const searchByName = async (name) => {
 };
 
 export const searchByEmail = async (email) => {
-  let list = await db.collection("Users").where("email", "==", email).get();
+  let list = await db.collection("users").where("email", "==", email).get();
   var mydata = list.docs.map((a) => {
     const data = a.data();
     const id = a.id;
@@ -26,7 +26,7 @@ export const searchByEmail = async (email) => {
 };
 
 export const searchByPhone = async (phone) => {
-  let list = await db.collection("Users").where("contact", "==", phone).get();
+  let list = await db.collection("users").where("contact", "==", phone).get();
   var mydata = list.docs.map((a) => {
     const data = a.data();
     const id = a.id;
@@ -37,7 +37,7 @@ export const searchByPhone = async (phone) => {
 
 export const searchByNameAndEmail = async (name, email) => {
   let list = await db
-    .collection("Users")
+    .collection("users")
     .where("name", "==", name)
     .where("email", "==", email)
     .get();
@@ -51,7 +51,7 @@ export const searchByNameAndEmail = async (name, email) => {
 
 export const searchByNameAndPhone = async (name, phone) => {
   let list = await db
-    .collection("Users")
+    .collection("users")
     .where("name", "==", name)
     .where("contact", "==", phone)
     .get();
@@ -65,7 +65,7 @@ export const searchByNameAndPhone = async (name, phone) => {
 
 export const searchByEmailAndPhone = async (email, phone) => {
   let list = await db
-    .collection("Users")
+    .collection("users")
     .where("email", "==", email)
     .where("contact", "==", phone)
     .get();
@@ -79,7 +79,7 @@ export const searchByEmailAndPhone = async (email, phone) => {
 
 export const searchByNameAndEmailAndPhone = async (name, email, phone) => {
   let list = await db
-    .collection("Users")
+    .collection("users")
     .where("name", "==", name)
     .where("email", "==", email)
     .where("contact", "==", phone)

@@ -36,132 +36,25 @@ export default class AssignmentPage extends Component {
   getMenteeList = async () => {
     // console.log("im printing")
     await db
-      .collection("Users")
+      .collection("users")
       .where("post", "==", "Mentee")
       .get()
       .then(async (querySnapshot) => {
         var mydata = querySnapshot.docs.map((a) => {
-          // console.log("a is ")
-          // console.log(a)
           const data = a.data();
           const id = a.id;
           return { id, ...data };
         });
-        var mydata2 = mydata.filter((mentee) => {
-          console.log(
-            "true of false?",
-            mentee.cohort != null && mentee.cohort == "January 2021"
-          );
-          return mentee.cohort != null && mentee.cohort == "January 2021";
-        });
-        console.log("data after filtering", mydata2);
-        this.setState({ menteeList: mydata2 });
+        console.log("data after filtering", mydata);
+        this.setState({ menteeList: mydata });
       });
 
-    // for(var i=0;i<mydata.length;i++){
-    //   //console.log(mydata[i].peerID[0])
-    //   if(mydata[i].peerID[0]){
-    //   //await db.collection("Users").doc(mydata[i].peerID[0]).get()
-    //   await db.collection('Users').doc(mydata[i].peerID[0]).get()
-    //   .then(snapshot => {
-
-    //     console.log("mentee "+mydata[i].name+" "+mydata[i].languages+" - "+"mentor "+snapshot.data().name+" "+snapshot.data().languages)
-    //   })
-    // }
-    //   // var final=await objs.get();
-    //   // console.log("objs",final)
-    // }
-    // this.setState({menteeList:mydata})
-    //return {}
-    // fb.db.collection("users")
-    // .orderByKey()
-    // .get()
-    // .then(querySnapshot => {
-    //   const data = querySnapshot.docs.map(doc => doc.data());
-    //   console.log(data); // array of cities objects
-    // });
-    //return {}
-    //});
-  };
-
-  addCohort = async () => {
-    var querySnapshot = await db
-      .collection("Users")
-      .where("contact", "in", [
-        "9868279694",
-        "8800316138",
-        "8700921396",
-        "9650244409",
-        "9643286358",
-        "9560254232",
-        "9267998718",
-        "8447070650",
-        "8882399925",
-        "8882399570",
-      ])
-      .get();
-    console.log("data peeps", querySnapshot.docs.length);
-    for (var i = 0; i < querySnapshot.docs.length; i++) {
-      await db
-        .collection("Users")
-        .doc(querySnapshot.docs[i].id)
-        .update({ cohort: "January 2021" });
-    }
-
-    console.log("DONEEE 1");
-
-    querySnapshot = await db
-      .collection("Users")
-      .where("contact", "in", [
-        "9582181906",
-        "9953571891",
-        "9034471692",
-        "9810519877",
-        "9971073352",
-        "8882627087",
-        "8882250446",
-        "9911861676",
-        "9205642321",
-        "9560523933",
-      ])
-      .get();
-    console.log("data peeps", querySnapshot.docs.length);
-    for (var i = 0; i < querySnapshot.docs.length; i++) {
-      //console.log("yoyo",querySnapshot.docs[i].id)
-      await db
-        .collection("Users")
-        .doc(querySnapshot.docs[i].id)
-        .update({ cohort: "January 2021" });
-    }
-    console.log("done 2");
-
-    querySnapshot = await db
-      .collection("Users")
-      .where("contact", "in", [
-        "9149345729",
-        "8700556386",
-        "8920130926",
-        "7906771458",
-        "9810210801",
-        "8851618045",
-        "8376888524",
-      ])
-      .get();
-    console.log("data peeps", querySnapshot.docs.length);
-    for (var i = 0; i < querySnapshot.docs.length; i++) {
-      //console.log("yoyo",querySnapshot.docs[i].id)
-      await db
-        .collection("Users")
-        .doc(querySnapshot.docs[i].id)
-        .update({ cohort: "January 2021" });
-    }
-    console.log("check now");
   };
 
   getMentorList = async () => {
     // console.log("im printing")
     await db
-      .collection("Users")
+      .collection("users")
       .where("post", "==", "Mentor")
       .get()
       .then((querySnapshot) => {
@@ -173,15 +66,7 @@ export default class AssignmentPage extends Component {
           const id = a.id;
           return { id, ...data };
         });
-        var mydata2 = mydata.filter((mentee) => {
-          console.log(
-            "true of false?",
-            mentee.cohort != null && mentee.cohort == "January 2021"
-          );
-          return mentee.cohort != null && mentee.cohort == "January 2021";
-        });
-        console.log("mentor data", mydata2);
-        this.setState({ mentorList: mydata2 });
+        this.setState({ mentorList: mydata });
       });
   };
 
@@ -200,7 +85,7 @@ export default class AssignmentPage extends Component {
     var menteeObj = { ...currentMenteeWithoutID, peerID: menteePeerIDCopy };
     // console.log(objtobeset)
     await db
-      .collection("Users")
+      .collection("users")
       .doc(this.state.selectedMentee.id)
       .set(menteeObj);
     var mentorPeerIDCopy = mentor.peerID.slice();
@@ -208,7 +93,7 @@ export default class AssignmentPage extends Component {
     const currentMentorWithoutID = (({ id, ...o }) => o)(mentor);
     var mentorObj = { ...currentMentorWithoutID, peerID: mentorPeerIDCopy };
     //console.log(mentor)
-    await db.collection("Users").doc(mentor.id).set(mentorObj);
+    await db.collection("users").doc(mentor.id).set(mentorObj);
     await this.getMenteeList();
     await this.getMentorList();
     this.setState({
