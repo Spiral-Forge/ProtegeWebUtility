@@ -68,9 +68,9 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
   const [check, setCheck] = useState(user.hosteller);
   const [formData, setFormData] = useState({
     name: user.name,
-    githubURL: user.githubURL,
-    linkedInURL: user.linkedInURL,
-    contact: user.contact,
+    githubUrl: user.githubUrl,
+    linkedInUrl: user.linkedInUrl,
+    phoneNo: user.phoneNo,
     hosteller: user.hosteller,
   });
 
@@ -81,22 +81,24 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
 
     delete userData.id;
 
-    console.log("user");
-    console.log(user);
+    console.log("user", user);
+    console.log(userData);
 
     const obj = {
       ...userData,
       hosteller: formData.hosteller,
-      githubURL: formData.githubURL,
+      githubUrl: formData.githubUrl,
       branch: branch.value,
       domains: arrStr(domain),
       name: formData.name,
       post: post.value,
-      linkedInURL: formData.linkedInURL,
+      linkedInUrl: formData.linkedInUrl,
       year: year.value,
-      contact: formData.contact,
+      phoneNo: formData.phoneNo,
       languages: arrStr(lang),
     };
+
+    console.log(obj)
 
     await db.collection("users").doc(user.id).update(obj);
 
@@ -128,25 +130,25 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
         <input
           className="form-control"
           type="text"
-          name="githubURL"
-          placeholder="githubURL"
-          value={formData.githubURL}
+          name="githubUrl"
+          placeholder="githubUrl"
+          value={formData.githubUrl}
           onChange={handleChange}
         />
         <input
           className="form-control"
           type="text"
-          name="linkedInURL"
-          placeholder="linkedInURL"
-          value={formData.linkedInURL}
+          name="linkedInUrl"
+          placeholder="linkedInUrl"
+          value={formData.linkedInUrl}
           onChange={handleChange}
         />
         <input
           className="form-control"
           type="text"
-          name="contact"
-          placeholder="contact"
-          value={formData.contact}
+          name="phoneNo"
+          placeholder="phoneNo"
+          value={formData.phoneNo}
           onChange={handleChange}
         />
         <div

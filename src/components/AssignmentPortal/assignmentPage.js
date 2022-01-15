@@ -46,8 +46,7 @@ export default class AssignmentPage extends Component {
           const id = a.id;
           return { id, ...data };
         });
-        console.log("data after filtering", mydata2);
-        this.setState({ menteeList: mydata2 });
+        this.setState({ menteeList: mydata });
       });
   };
 
