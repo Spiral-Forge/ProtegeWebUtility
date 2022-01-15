@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import EventCard from "./eventCard";
 import EventUpdateForm from "./eventUpdateForm";
 
 export default class UpdateSection extends Component {

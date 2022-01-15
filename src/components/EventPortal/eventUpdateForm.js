@@ -7,7 +7,7 @@ export default class EventUpdateForm extends Component {
       name: "",
       date: "",
       description: "",
-      url: "",
+      imageUrl: "",
       venue: "",
       time: "",
       link: "",
@@ -20,7 +20,7 @@ export default class EventUpdateForm extends Component {
       name: event.name,
       date: event.date,
       description: event.description,
-      url: event.url,
+      imageUrl: event.imageUrl,
       venue: event.venue,
       time: event.time,
       link: event.link,
@@ -38,14 +38,14 @@ export default class EventUpdateForm extends Component {
       name: "",
       date: "",
       description: "",
-      url: "",
+      imageUrl: "",
       venue: "",
       time: "",
       link: "",
     });
   };
   render() {
-    const { name, date, venue, url, time, description, link } = this.state;
+    const { name, date, venue, imageUrl, time, description, link } = this.state;
     //const {event}=this.props
 
     return (
@@ -80,9 +80,9 @@ export default class EventUpdateForm extends Component {
             <input
               className="form-control"
               type="text"
-              id="url"
-              name="url"
-              value={url}
+              id="imageUrl"
+              name="imageUrl"
+              value={imageUrl}
               onChange={this.handleChange}
             />
             <br />
