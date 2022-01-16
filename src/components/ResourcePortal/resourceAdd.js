@@ -12,8 +12,10 @@ export default class ResourceAdd extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.resourceAdd(this.state.selectedDomain, {
-      Title: this.state.Title,
-      Link: this.state.Link,
+      title: this.state.Title,
+      link: this.state.Link,
+      votes : 0,
+      votesMap : {}
     });
     this.setState({
       Title: "",
@@ -73,64 +75,74 @@ export default class ResourceAdd extends Component {
             <br></br>
             <input
               type="radio"
-              id="male"
+              id="Development"
               name="domain"
               value="Development"
               checked={this.state.selectedDomain === "Development"}
               onChange={this.handleOptionChange}
             />
-            <label for="male">Development</label>
+            <label for="Development">Development</label>
             <br />
             <input
               type="radio"
-              id="female"
+              id="College"
               name="domain"
               value="College"
               checked={this.state.selectedDomain === "College"}
               onChange={this.handleOptionChange}
             />
-            <label for="female">College</label>
+            <label for="College">College</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="ML"
               name="domain"
-              value="ML"
-              checked={this.state.selectedDomain === "ML"}
+              value="Machine Learning"
+              checked={this.state.selectedDomain === "Machine Learning"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Machine Learning</label>
+            <label for="ML">Machine Learning</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="Scholarships"
               name="domain"
-              value="Scholarship"
-              checked={this.state.selectedDomain === "option1"}
+              value="Scholarships"
+              checked={this.state.selectedDomain === "Scholarships"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Scholarship</label>
+            <label for="Scholarships">Scholarship</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="CP"
               name="domain"
-              value="CompCoding"
-              checked={this.state.selectedDomain === "CompCoding"}
+              value="Competitive Coding"
+              checked={this.state.selectedDomain === "Competitive Coding"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Competitive Coding</label>
+            <label for="CP">Competitive Coding</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="OS"
               name="domain"
-              value="OpenSource"
-              checked={this.state.selectedDomain === "OpenSource"}
+              value="Open Source"
+              checked={this.state.selectedDomain === "Open Source"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Open Source</label>
+            <label for="OS">Open Source</label>
             <br />
+            <input
+              type="radio"
+              id="Blogs"
+              name="domain"
+              value="Blogs and Articles"
+              checked={this.state.selectedDomain === "Blogs and Articles"}
+              onChange={this.handleOptionChange}
+            />
+            <label for="Blogs">Blogs And Articles</label>
+            <br/>
             <input className="btn btn-primary" type="submit" value="Submit" />
           </form>
         </div>
