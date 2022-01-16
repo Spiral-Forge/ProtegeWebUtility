@@ -29,7 +29,6 @@ export default function EventForm({ getEvent, edit, setEdit }) {
   };
 
   const handleDateChange = (e) => {
-    console.log("form data now is", e, formData)
     setFormData({
       ...formData,
       dateTime: new Date(e),

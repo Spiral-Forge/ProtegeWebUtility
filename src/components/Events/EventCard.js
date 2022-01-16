@@ -11,6 +11,14 @@ export default function EventCard({ event, getEvent, setEdit }) {
     getEvent();
   };
 
+  const getFormattedDate = (date) => {
+    return date.toDate().toDateString()
+  }
+
+  const getFormattedTime = (date) => {
+    return date.toDate().toLocaleTimeString('en-US',{timeZone:'IST',hour12:true,hour:'numeric',minute:'numeric'})
+  }
+
   return (
     <div className="event--card">
       <div className="img">
@@ -39,7 +47,10 @@ export default function EventCard({ event, getEvent, setEdit }) {
           <p>{event.name}</p>
           <span className="more">
             <p>
-              {event.date} | {event.venue}
+              When: {getFormattedDate(event.dateTime)} | At: {getFormattedTime(event.dateTime)}
+            </p>
+            <p>
+              Where: {event.venue}
             </p>
           </span>
         </div>
