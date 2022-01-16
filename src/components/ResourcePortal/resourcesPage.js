@@ -4,6 +4,19 @@ import ResourceAdd from './resourceAdd'
 import ResourceUpdateAndDelete from './resourceUpdateAndDelete'
 import '../../stylesheets/resources.css'
 const db = firebase.firestore();
+
+
+let idmap = {
+  'Competitive Coding': 'CnqgrckX3Ng9LkYatEuO',
+  'College': 'ERJWeTgvy9jZnaywAEyk',
+  'Scholarships': 'g1kD27iQbspFYKFGZZD1',
+  'Development' : 'p1X297pOuY3qRVimM8vO',
+  'Open Source': 'gXZ6cG9cVn4GliuyVrMc',
+  'Blogs and Articles': 'tK0pHlzBEeGpt8E2nlmd',
+  'Machine Learning' : 'tzBwYg8l6Rfk6gBHdOgA',
+  'Miscellaneous': 'eY2GbIcMptOcCSM5kG58'
+}
+
 export default class ResourcesPage extends Component {
     constructor(props){
         super(props)
@@ -28,8 +41,10 @@ export default class ResourcesPage extends Component {
         alert("deleted")
         this.getResourceList(domain)
     }
+
     addResource=async(domain,obj)=>{
-        await db.collection(domain).add(obj)
+
+        await db.collection("resources01").doc(idmap[domain]).collection('data').add(obj);
         alert("added")
     }
     

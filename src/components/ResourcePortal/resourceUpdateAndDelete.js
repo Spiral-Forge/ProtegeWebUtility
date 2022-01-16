@@ -72,7 +72,7 @@ export default class ResourceUpdateAndDelete extends Component {
               id="other"
               name="domain"
               value="Scholarship"
-              checked={this.state.selectedDomain === "option1"}
+              checked={this.state.selectedDomain === "Scholarship"}
               onChange={this.handleOptionChange}
             />
             <label for="other">Scholarship</label>
