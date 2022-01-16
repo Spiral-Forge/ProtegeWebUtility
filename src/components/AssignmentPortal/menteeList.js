@@ -60,15 +60,12 @@ export default class MenteeList extends Component {
               onChange={this.handleChange}
             >
               <option value="None">None</option>
-              <option value="CSE-1">CSE-1</option>
-              <option value="CSE-2">CSE-2</option>
-              <option value="CSAI">CSAI</option>
-              <option value="IT-1">IT-1</option>
-              <option value="IT-2">IT-2</option>
-              <option value="ECE">ECE</option>
-              <option value="MAE">MAE</option>
-              <option value="BBA">BBA</option>
-              <option value="B.Arch">B.Arch</option>
+              <option value="Computer Science Engineering">Computer Science Engineering</option>
+              <option value="Information Technology Engineering">Information Technology Engineering</option>
+              <option value="Computer Science and AI Engineering">Computer Science and AI Engineering</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+              <option value="Chemical Engineering">Chemical Engineering</option>
+              <option value="Mechanical and Automation Engineering">Mechanical and Automation Engineering</option>
             </select>
           </label>
           <br />
@@ -94,7 +91,7 @@ export default class MenteeList extends Component {
                 <br />
                 Branch:{item.branch}
                 <br />
-                No of mentors: {item.peerId ? item.peerId.length : "dunno"}
+                No of mentors: {item.peerId ? item.peerId.length : "unknown"}
               </div>
             </li>
           ))}
