@@ -26,18 +26,24 @@ export default class ResourcesPage extends Component {
     }
     getResourceList=async (domain)=>{
     // console.log("im printing")
-        db.collection(domain).get()
-        .then(querySnapshot => {
+
+        await db.collection("resources01").doc(idmap[domain]).collection('data').get().then(querySnapshot => {
             var mydata= querySnapshot.docs.map(a => {
-            const data = a.data();
-            const id = a.id;
-            return { id, ...data };
+                const title = a.data().title;
+                const link = a.data().link;
+                const votes = a.data().votes;
+                const votesMap = a.data().votesMap;
+                const id = a.id;
+                return { id, title, link, votes, votesMap };
             });
+            console.log(mydata);
             this.setState({selectedResourceList:mydata})
-            });
+        })
     }
     deleteResource=async(domain,id)=>{
-        await db.collection(domain).doc(id).delete();
+
+        await db.collection("resources01").doc(idmap[domain]).collection('data').doc(id).delete();
+        // await db.collection(domain).doc(id).delete();
         alert("deleted")
         this.getResourceList(domain)
     }

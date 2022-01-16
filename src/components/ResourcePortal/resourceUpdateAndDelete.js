@@ -37,66 +37,77 @@ export default class ResourceUpdateAndDelete extends Component {
         <div style={{ textAlign: "center", padding: "35px" }}>
           <h2>View and Delete Resources</h2>
           <form onSubmit={this.handleSubmit}>
-            <input
+          <input
               type="radio"
-              id="male"
+              id="Develop"
               name="domain"
               value="Development"
               checked={this.state.selectedDomain === "Development"}
               onChange={this.handleOptionChange}
             />
-            <label for="male">Development</label>
+            <label for="Develop">Development</label>
             <br />
             <input
               type="radio"
-              id="female"
+              id="Collge"
               name="domain"
               value="College"
               checked={this.state.selectedDomain === "College"}
               onChange={this.handleOptionChange}
             />
-            <label for="female">College</label>
+            <label for="Collge">College</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="MLearn"
               name="domain"
-              value="ML"
-              checked={this.state.selectedDomain === "ML"}
+              value="Machine Learning"
+              checked={this.state.selectedDomain === "Machine Learning"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Machine Learning</label>
+            <label for="MLearn">Machine Learning</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="Scholarship"
               name="domain"
-              value="Scholarship"
-              checked={this.state.selectedDomain === "Scholarship"}
+              value="Scholarships"
+              checked={this.state.selectedDomain === "Scholarships"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Scholarship</label>
+            <label for="Scholarship">Scholarship</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="Comp"
               name="domain"
-              value="CompCoding"
-              checked={this.state.selectedDomain === "CompCoding"}
+              value="Competitive Coding"
+              checked={this.state.selectedDomain === "Competitive Coding"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Competitive Coding</label>
+            <label for="Comp">Competitive Coding</label>
             <br />
             <input
               type="radio"
-              id="other"
+              id="OpenS"
               name="domain"
-              value="OpenSource"
-              checked={this.state.selectedDomain === "OpenSource"}
+              value="Open Source"
+              checked={this.state.selectedDomain === "Open Source"}
               onChange={this.handleOptionChange}
             />
-            <label for="other">Open Source</label>
+            <label for="OpenS">Open Source</label>
             <br />
+            <input
+              type="radio"
+              id="Articles"
+              name="domain"
+              value="Blogs and Articles"
+              checked={this.state.selectedDomain === "Blogs and Articles"}
+              onChange={this.handleOptionChange}
+            />
+            <label for="Articles">Blogs And Articles</label>
+            <br/>
+           
             <input className="btn btn-primary" type="submit" value="Submit" />
           </form>
         </div>
@@ -107,9 +118,9 @@ export default class ResourceUpdateAndDelete extends Component {
               return (
                 <li style={{ margin: "15px" }}>
                   <div className="card" style={{ width: "18rem" }}>
-                    <div className="card-header">{res.Title}</div>
+                    <div className="card-header">{res.title}</div>
                     <ul className="list-group list-group-flush">
-                      <li className="list-group-item">{res.Link}</li>
+                      <li className="list-group-item">{res.link}</li>
                       <li className="list-group-item">
                         <button onClick={() => this.handleDelete(res.id)}>
                           Delete
