@@ -12,7 +12,7 @@ export const notify = async (to, title, body) => {
     method: "POST",
     headers: {
       authorization:
-        "key=AAAAz0nsHi0:APA91bFU8rlcKoABNVSa9dTaimq5GK4INd2AefoKryRvK7FuH3LvaYpKBOPxmq8_tSHJkPJrnIHSbuh4x_ngf0-xbMESaUdfD1ELU8DQaBVzOkCsgcetKJqI-edwz8kAljqpyXK7gyJH",
+      `key=${process.env.SERVER_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(fetchOptions),

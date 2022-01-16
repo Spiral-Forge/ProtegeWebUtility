@@ -16,7 +16,7 @@ export default class MentorMatches extends Component {
             <li
               style={{
                 textDecoration:
-                  item.peerID == null || item.peerID.length == 0
+                  item.peerId == null || item.peerId.length == 0
                     ? "none"
                     : "line-through",
               }}
@@ -27,7 +27,7 @@ export default class MentorMatches extends Component {
                 <br />
                 Branch:{item.branch}
                 <br />
-                {item.peerID ? item.peerID.length : "dunno"}
+                {item.peerId ? item.peerId.length : "dunno"}
               </div>
             </li>
           ))}

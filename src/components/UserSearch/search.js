@@ -36,7 +36,7 @@ export const searchByEmail = async (email) => {
 };
 
 export const searchByPhone = async (phone) => {
-  let list = await db.collection("users").where("contact", "==", phone).get();
+  let list = await db.collection("users").where("phoneNo", "==", phone).get();
   var mydata = list.docs.map((a) => {
     const data = a.data();
     const id = a.id;
@@ -63,7 +63,7 @@ export const searchByNameAndPhone = async (name, phone) => {
   let list = await db
     .collection("users")
     .where("name", "==", name)
-    .where("contact", "==", phone)
+    .where("phoneNo", "==", phone)
     .get();
   var mydata = list.docs.map((a) => {
     const data = a.data();
@@ -77,7 +77,7 @@ export const searchByEmailAndPhone = async (email, phone) => {
   let list = await db
     .collection("users")
     .where("email", "==", email)
-    .where("contact", "==", phone)
+    .where("phoneNo", "==", phone)
     .get();
   var mydata = list.docs.map((a) => {
     const data = a.data();
@@ -92,7 +92,7 @@ export const searchByNameAndEmailAndPhone = async (name, email, phone) => {
     .collection("users")
     .where("name", "==", name)
     .where("email", "==", email)
-    .where("contact", "==", phone)
+    .where("phoneNo", "==", phone)
     .get();
 
   var mydata = list.docs.map((a) => {

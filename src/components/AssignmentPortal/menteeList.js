@@ -94,7 +94,7 @@ export default class MenteeList extends Component {
                 <br />
                 Branch:{item.branch}
                 <br />
-                No of mentors: {item.peerID ? item.peerID.length : "dunno"}
+                No of mentors: {item.peerId ? item.peerId.length : "dunno"}
               </div>
             </li>
           ))}

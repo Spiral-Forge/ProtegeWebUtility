@@ -30,8 +30,8 @@ export default function PeerCard({ user, isHomeDisplay }) {
             <li className="list-group-item">Post: {user.post}</li>
             <li className="list-group-item">
               PeerID:{" "}
-              {user.peerID &&
-                user.peerID.map((id) => (
+              {user.peerId &&
+                user.peerId.map((id) => (
                   <div style={{ marginBottom: "10px" }}>
                     <p style={{ marginBottom: "5px" }}>{id}</p>
                   </div>

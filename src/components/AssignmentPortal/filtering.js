@@ -76,7 +76,7 @@ export function applyZeroMenteeFilter(array){
         return array;
     }else{
         var returnArray=array.filter((mentor)=>{
-            return mentor.peerID!=undefined && mentor.peerID.length==0
+            return mentor.peerId!=undefined && mentor.peerId.length==0
         })
         return returnArray;
     }

@@ -69,13 +69,13 @@ export default class AssignmentPage extends Component {
   };
 
   saveAssignment = async (mentor) => {
-    var menteePeerIDCopy = this.state.selectedMentee.peerID.slice();
+    var menteePeerIDCopy = this.state.selectedMentee.peerId.slice();
     menteePeerIDCopy.push(mentor.id);
-    //console.log(peerIDCopy)
+    //console.log(peerIdCopy)
     const currentMenteeWithoutID = (({ id, ...o }) => o)(
       this.state.selectedMentee
     );
-    var menteeObj = { ...currentMenteeWithoutID, peerID: menteePeerIDCopy };
+    var menteeObj = { ...currentMenteeWithoutID, peerId: menteePeerIDCopy };
     try {
       // throw "Custom Error 1";
       await db
@@ -86,19 +86,19 @@ export default class AssignmentPage extends Component {
       console.log(error);
       return;
     }
-    var mentorPeerIDCopy = mentor.peerID.slice();
+    var mentorPeerIDCopy = mentor.peerId.slice();
     mentorPeerIDCopy.push(this.state.selectedMentee.id);
     const currentMentorWithoutID = (({ id, ...o }) => o)(mentor);
-    var mentorObj = { ...currentMentorWithoutID, peerID: mentorPeerIDCopy };
+    var mentorObj = { ...currentMentorWithoutID, peerId: mentorPeerIDCopy };
     try {
       await db.collection("users").doc(mentor.id).set(mentorObj);
       notify(
-        menteeObj.token,
+        menteeObj.fcmToken,
         "Mentor Assigned",
         `${mentorObj.name} is assigned to you as a mentor`
       );
       notify(
-        mentorObj.token,
+        mentorObj.fcmToken,
         "Mentee Assigned",
         `${menteeObj.name} is assigned to you as a mentee`
       );

@@ -38,8 +38,8 @@ export default function UserCard({
   };
 
   const removePeerId = async (id) => {
-    const uIdx = user.peerID.indexOf(id);
-    const pId = user.peerID.splice(uIdx, 1)[0];
+    const uIdx = user.peerId.indexOf(id);
+    const pId = user.peerId.splice(uIdx, 1)[0];
     const uId = user.id;
     delete user.id;
     console.log(user);
@@ -54,10 +54,10 @@ export default function UserCard({
       removePeerId(id);
       return;
     }
-    const uIdx = user.peerID.indexOf(id);
-    const pIdx = peer.peerID.indexOf(user.id);
-    const pId = user.peerID.splice(uIdx, 1)[0];
-    const uId = peer.peerID.splice(pIdx, 1)[0];
+    const uIdx = user.peerId.indexOf(id);
+    const pIdx = peer.peerId.indexOf(user.id);
+    const pId = user.peerId.splice(uIdx, 1)[0];
+    const uId = peer.peerId.splice(pIdx, 1)[0];
     delete user.id;
     
     await db.collection("users").doc(uId).update(user);
@@ -111,8 +111,8 @@ export default function UserCard({
             <li className="list-group-item">Post: {user.post}</li>
             <li className="list-group-item">
               PeerID:{" "}
-              {user.peerID &&
-                user.peerID.map((id) => (
+              {user.peerId &&
+                user.peerId.map((id) => (
                   <div style={{ marginBottom: "10px" }}>
                     <p style={{ marginBottom: "5px" }}>{id}</p>
                     <div
