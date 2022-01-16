@@ -8,15 +8,12 @@ const db = firebase.firestore();
 const yearOp = ["First", "Second", "Third", "Fourth"];
 const postOp = ["Mentee", "Mentor", "Admin"];
 const branchOp = [
-  "CSE-1",
-  "CSE-2",
-  "CSAI",
-  "IT-1",
-  "IT-2",
-  "ECE",
-  "MAE",
-  "BBA",
-  "B.Arch",
+  "Computer Science Engineering",
+  "Information Technology Engineering",
+  "Computer Science and AI Engineering",
+  "Electrical Engineering",
+  "Chemical Engineering",
+  "Mechanical and Automation Engineering"
 ];
 
 const langOp = [

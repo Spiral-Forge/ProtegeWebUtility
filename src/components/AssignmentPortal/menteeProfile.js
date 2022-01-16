@@ -96,6 +96,8 @@ export default class MenteeProfile extends Component {
   handleCheckboxes = (e) => {
     if (e.target.checked) {
       this.setState({ [e.target.name]: e.target.value });
+    }else{
+      this.setState({ [e.target.name]: false });
     }
   };
 
@@ -124,14 +126,12 @@ export default class MenteeProfile extends Component {
                 onChange={this.handleChange}
               >
                 <option value="None">None</option>
-                <option value="CSE-1">CSE-1</option>
-                <option value="CSE-2">CSE-2</option>
-                <option value="IT-1">IT-1</option>
-                <option value="IT-2">IT-2</option>
-                <option value="ECE">ECE</option>
-                <option value="MAE">MAE</option>
-                <option value="BBA">BBA</option>
-                <option value="B.Arch">B.Arch</option>
+                <option value="Computer Science Engineering">Computer Science Engineering</option>
+                <option value="Information Technology Engineering">Information Technology Engineering</option>
+                <option value="Computer Science and AI Engineering">Computer Science and AI Engineering</option>
+                <option value="Electrical Engineering">Electrical Engineering</option>
+                <option value="Chemical Engineering">Chemical Engineering</option>
+                <option value="Mechanical and Automation Engineering">Mechanical and Automation Engineering</option>
               </select>
             </label>
             <hr></hr>
@@ -193,6 +193,60 @@ export default class MenteeProfile extends Component {
             />
             <label htmlfor="Open"> No Preference</label>
             <br />
+            <input
+              type="checkbox"
+              id="Open"
+              name="domain"
+              value="BlockChain"
+              onChange={this.handleOptionChangeDomain}
+            />
+            <label htmlfor="Open"> BlockChain</label>
+            <br />
+            <input
+              type="checkbox"
+              id="Open"
+              name="domain"
+              value="AR/VR"
+              onChange={this.handleOptionChangeDomain}
+            />
+            <label htmlfor="Open"> AR/VR</label>
+            <br />
+            <input
+              type="checkbox"
+              id="Open"
+              name="domain"
+              value="Game Development"
+              onChange={this.handleOptionChangeDomain}
+            />
+            <label htmlfor="Open"> Game Development</label>
+            <br />
+            <input
+              type="checkbox"
+              id="Open"
+              name="domain"
+              value="Cloud Engineering"
+              onChange={this.handleOptionChangeDomain}
+            />
+            <label htmlfor="Open"> Cloud Engineering</label>
+            <br />
+            <input
+              type="checkbox"
+              id="Open"
+              name="domain"
+              value="Cyber Security"
+              onChange={this.handleOptionChangeDomain}
+            />
+            <label htmlfor="Open"> Cyber Security</label>
+            <br />
+            <input
+              type="checkbox"
+              id="Open"
+              name="domain"
+              value="Open Source"
+              onChange={this.handleOptionChangeDomain}
+            />
+            <label htmlfor="Open"> Open Source</label>
+            <br />
             <hr></hr>
             <label className="filterLabel">
               <p>Select languages: </p>
@@ -202,10 +256,10 @@ export default class MenteeProfile extends Component {
               type="checkbox"
               id="male"
               name="lang"
-              value="C/C++"
+              value="C++"
               onChange={this.handleOptionChangeLang}
             />
-            <label htmlfor="male"> C/C++ </label>
+            <label htmlfor="male"> C++ </label>
             <input
               type="checkbox"
               id="female"
