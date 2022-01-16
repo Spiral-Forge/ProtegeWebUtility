@@ -17,7 +17,7 @@ export default function EventForm({ getEvent, edit, setEdit }) {
 
   useEffect(() => {
     if (!!edit) {
-      setFormData(edit);
+      setFormData({...edit, dateTime: edit.dateTime.toDate()});
     }
   }, [edit]);
 
