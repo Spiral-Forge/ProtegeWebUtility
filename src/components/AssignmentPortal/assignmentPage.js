@@ -46,8 +46,6 @@ export default class AssignmentPage extends Component {
           const id = a.id;
           return { id, ...data };
         });
-        console.log(mydata);
-        // console.log(process.env.p)
         this.setState({ menteeList: mydata });
       });
   };
