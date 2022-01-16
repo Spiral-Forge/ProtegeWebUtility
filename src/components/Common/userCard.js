@@ -93,7 +93,6 @@ export default function UserCard({
         <li className="list-group-item">Github: {user.githubUrl}</li>
         <li className="list-group-item">LinkedIn: {user.linkedInUrl}</li>
         <li className="list-group-item">Contact: {user.phoneNo}</li>
-        <li className="list-group-item">Hosteller: {user.hosteller}</li>
         <li className="list-group-item">
           Domains:{" "}
           {user.domains.map((domain) => {

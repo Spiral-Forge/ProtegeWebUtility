@@ -12,17 +12,6 @@ export function applyBranchFilter(array,filterBranch){
 
 }
 
-export function applyHostellerFilter(array){
-    if(array.length==0){
-        return array;
-    }else{
-        var returnArray=array.filter((mentor)=>{
-            return mentor.hosteller==true
-        })
-        return returnArray;
-    }
-}
-
 export function applyDomainsFilter(array,filterDomains){
     if(array.length==0){
         return array;

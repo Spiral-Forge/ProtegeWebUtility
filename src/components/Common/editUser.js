@@ -65,13 +65,11 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
   });
   const [year, setYear] = useState({ value: user.year, label: user.year });
   const [post, setPost] = useState({ value: user.post, label: user.post });
-  const [check, setCheck] = useState(user.hosteller);
   const [formData, setFormData] = useState({
     name: user.name,
     githubUrl: user.githubUrl,
     linkedInUrl: user.linkedInUrl,
     phoneNo: user.phoneNo,
-    hosteller: user.hosteller,
   });
 
   const handleSubmit = async (e) => {
@@ -86,7 +84,6 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
 
     const obj = {
       ...userData,
-      hosteller: formData.hosteller,
       githubUrl: formData.githubUrl,
       branch: branch.value,
       domains: arrStr(domain),
@@ -151,25 +148,6 @@ export default function EditUser({ user, setEdit, setSearchedUserList }) {
           value={formData.phoneNo}
           onChange={handleChange}
         />
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 5,
-            padding: "0.75rem 1.25rem",
-            borderBottom: "1px solid #d9d9d9",
-          }}
-        >
-          <input
-            type="checkbox"
-            name="hosteller"
-            value="hosteller"
-            checked={check}
-            onChange={() => setCheck(!check)}
-          />
-          Hosteller
-        </div>
         <div className="group">
           {/* Year */}
           <Dropdown options={yearOp} onChange={setYear} value={year} />

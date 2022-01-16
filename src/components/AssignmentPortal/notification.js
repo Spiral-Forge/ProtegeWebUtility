@@ -12,7 +12,7 @@ export const notify = async (to, title, body) => {
     method: "POST",
     headers: {
       authorization:
-      `key=${process.env.SERVER_KEY}`,
+      `key=${process.env.REACT_APP_SERVER_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(fetchOptions),

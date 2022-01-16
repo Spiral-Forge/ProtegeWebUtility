@@ -12,7 +12,6 @@ export default class MenteeProfile extends Component {
       selectedBranch: "None",
       selectedDomains: [],
       selectedLanguages: [],
-      hosteller: false,
       zeroMenteesFlag: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -52,7 +51,6 @@ export default class MenteeProfile extends Component {
     }
     this.props.addFilters(
       branch,
-      this.state.hosteller,
       domains,
       langs,
       this.state.zeroMenteesFlag
@@ -236,17 +234,6 @@ export default class MenteeProfile extends Component {
             <br />
 
             <hr></hr>
-
-            <input
-              type="checkbox"
-              id="Open"
-              name="hosteller"
-              value={true}
-              onChange={this.handleCheckboxes}
-            />
-            <label className="filterLabel">
-              <p> Hosteller </p>
-            </label>
             <br />
             <input
               type="checkbox"

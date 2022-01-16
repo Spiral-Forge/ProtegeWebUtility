@@ -8,7 +8,6 @@ import firebase from "../Firebase/firebase";
 import "../../stylesheets/assignment.css";
 import {
   applyBranchFilter,
-  applyHostellerFilter,
   applyDomainsFilter,
   applyLanguagesFilter,
   applyZeroMenteeFilter,
@@ -133,7 +132,6 @@ export default class AssignmentPage extends Component {
   };
   addFilters = (
     branchFilter,
-    hostellerFilter,
     domainFilter,
     langFilter,
     zeroMenteeFilter
@@ -141,7 +139,6 @@ export default class AssignmentPage extends Component {
     console.log(
       "data recieved in parent page ",
       branchFilter,
-      hostellerFilter,
       domainFilter,
       langFilter,
       zeroMenteeFilter
@@ -150,10 +147,6 @@ export default class AssignmentPage extends Component {
     if (branchFilter != null) {
       console.log("filtering using branch");
       filteredMentorList = applyBranchFilter(filteredMentorList, branchFilter);
-    }
-    if (hostellerFilter) {
-      console.log("list going in before hostel filter", filteredMentorList);
-      filteredMentorList = applyHostellerFilter(filteredMentorList);
     }
     if (domainFilter != null) {
       console.log("list going in before domain filter", filteredMentorList);
