@@ -1,5 +1,4 @@
 export const notify = async (to, title, body) => {
-  console.log(process.env.SERVER_KEY);
   const fetchOptions = {
     to: to,
     collapse_key: "type_a",
