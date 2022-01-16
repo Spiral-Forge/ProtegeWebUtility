@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../../stylesheets/Event.css";
 import { createEvent, updateEvent } from "./util";
+import DateTimePicker from 'react-datetime-picker';
 
 const emptyForm = {
   name: "",
-  date: "",
+  dateTime: "",
   imageUrl: "",
   venue: "",
-  time: "",
-  link: "",
   description: "",
+  registrationLink: ""
 };
 
 export default function EventForm({ getEvent, edit, setEdit }) {
@@ -25,6 +25,14 @@ export default function EventForm({ getEvent, edit, setEdit }) {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleDateChange = (e) => {
+    console.log("form data now is", e, formData)
+    setFormData({
+      ...formData,
+      dateTime: new Date(e),
     });
   };
 
@@ -45,23 +53,18 @@ export default function EventForm({ getEvent, edit, setEdit }) {
     <div className="event--form">
       <form onSubmit={handleSubmit} className="form">
         <input
-          required
           type="text"
           name="name"
           placeholder="Name"
           value={formData.name}
           onChange={handleChange}
         />
-        <input
-          required
-          type="text"
-          name="date"
-          placeholder="Date"
-          value={formData.date}
-          onChange={handleChange}
+        <DateTimePicker
+          name="dateTime"
+          onChange={handleDateChange}
+          value={formData.dateTime}
         />
         <input
-          required
           type="text"
           name="imageUrl"
           placeholder="imageUrl"
@@ -69,7 +72,6 @@ export default function EventForm({ getEvent, edit, setEdit }) {
           onChange={handleChange}
         />
         <input
-          required
           type="text"
           name="venue"
           placeholder="Venue"
@@ -77,23 +79,13 @@ export default function EventForm({ getEvent, edit, setEdit }) {
           onChange={handleChange}
         />
         <input
-          required
           type="text"
-          name="time"
-          placeholder="Time"
-          value={formData.time}
-          onChange={handleChange}
-        />
-        <input
-          required
-          type="text"
-          name="link"
+          name="registrationLink"
           placeholder="Link"
-          value={formData.link}
+          value={formData.registrationLink}
           onChange={handleChange}
         />
         <textarea
-          required
           type="text"
           name="description"
           placeholder="Description"
