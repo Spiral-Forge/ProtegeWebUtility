@@ -27,19 +27,22 @@ export default function Main() {
       <Navbar />
       <AuthProvider>
         <Switch>
-          {/* <PrivateRoute component={Home} path={"/"} exact /> */}
-          <Route
+          <PrivateRoute component={Home} path={"/"} exact />
+          {/* <Route
             exact
             path="/"
             render={(props) => <Home {...props} />}
-          ></Route>
-          {/* <PrivateRoute path="/usersearch" authenticated={this.state.authenticated} component={UserSearch}></PrivateRoute> */}
+          ></Route> */}
+          <PrivateRoute path="/usersearch" component={UserSearch}></PrivateRoute>
           <Route
             exact
             path="/login"
             render={(props) => <Login {...props} />}
           ></Route>
-          <Route
+           <PrivateRoute path="/resources" component={ResourcesPage}></PrivateRoute>
+           <PrivateRoute path="/assignment" component={AssignmentPage}></PrivateRoute>
+           <PrivateRoute path="/events" component={Event}></PrivateRoute>
+          {/* <Route
             exact
             path="/usersearch"
             render={(props) => <UserSearch {...props} />}
@@ -58,7 +61,7 @@ export default function Main() {
             exact
             path="/events"
             render={(props) => <Event {...props} />}
-          ></Route>
+          ></Route> */}
         </Switch>
       </AuthProvider>
     </div>
