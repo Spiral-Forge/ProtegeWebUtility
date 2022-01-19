@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import AssignmentPage from "./components/AssignmentPortal/assignmentPage";
 import ResourcesPage from "./components/ResourcePortal/resourcesPage";
 import UserSearch from "./components/UserSearch/userSearch";
@@ -6,15 +6,43 @@ import { Router, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/home";
 import Navbar from "./components/Common/navbar";
 import Event from "./components/Events/Event";
+import Login from "./components/Auth/login";
+import AuthProvider from "./context/AuthContext";
+import PrivateRoute from "./components/Auth/privateRoute";
+import { auth } from './components/Firebase/firebase'
 
-export default class Main extends Component {
-  render() {
-    return (
-      <div>
-        <Navbar />
+export default function Main() {
+
+//   useEffect(() => {
+//     console.log("hello",currentuser)
+//     if(currentuser){
+//         userHasAuthenticated(true)
+//     }else{
+//         userHasAuthenticated(false)
+//     }
+// }, [currentuser]);
+
+  return (
+    <div>
+      <Navbar />
+      <AuthProvider>
         <Switch>
-          <Route exact path="/" render={(props) => <Home {...props} />}></Route>
+          <PrivateRoute component={Home} path={"/"} exact />
+          {/* <Route
+            exact
+            path="/"
+            render={(props) => <Home {...props} />}
+          ></Route> */}
+          <PrivateRoute path="/usersearch" component={UserSearch}></PrivateRoute>
           <Route
+            exact
+            path="/login"
+            render={(props) => <Login {...props} />}
+          ></Route>
+           <PrivateRoute path="/resources" component={ResourcesPage}></PrivateRoute>
+           <PrivateRoute path="/assignment" component={AssignmentPage}></PrivateRoute>
+           <PrivateRoute path="/events" component={Event}></PrivateRoute>
+          {/* <Route
             exact
             path="/usersearch"
             render={(props) => <UserSearch {...props} />}
@@ -33,9 +61,9 @@ export default class Main extends Component {
             exact
             path="/events"
             render={(props) => <Event {...props} />}
-          ></Route>
+          ></Route> */}
         </Switch>
-      </div>
-    );
-  }
+      </AuthProvider>
+    </div>
+  );
 }
