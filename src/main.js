@@ -27,12 +27,12 @@ export default function Main() {
       <Navbar />
       <AuthProvider>
         <Switch>
-          <PrivateRoute component={Home} path={"/"} exact />
-          {/* <Route
+          {/* <PrivateRoute component={Home} path={"/"} exact /> */}
+          <Route
             exact
             path="/"
             render={(props) => <Home {...props} />}
-          ></Route> */}
+          ></Route>
           <PrivateRoute path="/usersearch" component={UserSearch}></PrivateRoute>
           <Route
             exact
