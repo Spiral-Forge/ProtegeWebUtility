@@ -262,6 +262,14 @@ export default class MenteeProfile extends Component {
             <label htmlfor="male"> C++ </label>
             <input
               type="checkbox"
+              id="male"
+              name="lang"
+              value="C/C++"
+              onChange={this.handleOptionChangeLang}
+            />
+            <label htmlfor="male"> C/C++ </label>
+            <input
+              type="checkbox"
               id="female"
               name="lang"
               value="Java"
