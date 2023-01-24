@@ -109,8 +109,8 @@ export default class AssignmentPage extends Component {
       console.log(error);
     }
 
-    await this.getMenteeList();
-    await this.getMentorList();
+    // await this.getMenteeList();
+    // await this.getMentorList();
     this.setState({
       menteeProfileOpened: false,
       mentorQueryFired: false,

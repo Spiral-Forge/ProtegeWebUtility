@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserCard from "../Common/userCard";
 import Dropdown from "react-dropdown";
 import firebase from "firebase";
-const db=firebase.firestore();
+const db = firebase.firestore();
 
 //import { Dropdown } from 'semantic-ui-react'
 const options = ["one", "two", "three"];
@@ -16,40 +16,43 @@ export default class MenteeProfile extends Component {
       selectedDomains: [],
       selectedLanguages: [],
       zeroMenteesFlag: false,
+      domains: [],
+      languages: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-   componentDidMount= async ()=>{
-      this.getLanguageData();
-      this.getDomainData();
-   }
-   getDomainData = async ()=>{
+  componentDidMount = async () => {
+    this.getLanguageData();
+    this.getDomainData();
+  };
+  getDomainData = async () => {
     await db
-    .collection("domains")
-    .get()
-    .then(async (querySnapshot) => {
-      var domainData = querySnapshot.docs.map((a) => {
-        const data = a.data();
-        const id = a.id;
-        return { id, ...data };
+      .collection("domains")
+      .get()
+      .then(async (querySnapshot) => {
+        var domainData = querySnapshot.docs.map((a) => {
+          const data = a.data();
+          const id = a.id;
+          return { id, ...data };
+        });
+
+        this.setState({ domains: domainData });
       });
-      this.setState({ selectedDomains: domainData });
-    });    
-   }
-   getLanguageData = async ()=>{
+  };
+  getLanguageData = async () => {
     await db
-    .collection("languages")
-    .get()
-    .then(async (querySnapshot) => {
-      var langData = querySnapshot.docs.map((a) => {
-        const data = a.data();
-        const id = a.id;
-        return { id, ...data };
+      .collection("languages")
+      .get()
+      .then(async (querySnapshot) => {
+        var langData = querySnapshot.docs.map((a) => {
+          const data = a.data();
+          const id = a.id;
+          return { id, ...data };
+        });
+        this.setState({ languages: langData });
       });
-      this.setState({ selectedLanguages: langData });
-    });    
-   }
+  };
   // _onSelect = event => {
   //   console.log(event.target.value)
   //   this.setState({
@@ -81,12 +84,7 @@ export default class MenteeProfile extends Component {
     if (this.state.selectedBranch == "None") {
       branch = null;
     }
-    this.props.addFilters(
-      branch,
-      domains,
-      langs,
-      this.state.zeroMenteesFlag
-    );
+    this.props.addFilters(branch, domains, langs, this.state.zeroMenteesFlag);
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -123,19 +121,21 @@ export default class MenteeProfile extends Component {
       );
       //this.state.selectedDomains.splice(value, 1);
     }
+
+    // console.log(this.state.selectedLanguages);
   };
 
   handleCheckboxes = (e) => {
     if (e.target.checked) {
       this.setState({ [e.target.name]: e.target.value });
-    }else{
+    } else {
       this.setState({ [e.target.name]: false });
     }
   };
 
   render() {
-    const {selectedLanguages}=this.state;
-    const {selectedDomains}=this.state;
+    const { languages } = this.state;
+    const { domains } = this.state;
     return (
       <div
         style={{
@@ -160,12 +160,24 @@ export default class MenteeProfile extends Component {
                 onChange={this.handleChange}
               >
                 <option value="None">None</option>
-                <option value="Computer Science Engineering">Computer Science Engineering</option>
-                <option value="Information Technology Engineering">Information Technology Engineering</option>
-                <option value="Computer Science and AI Engineering">Computer Science and AI Engineering</option>
-                <option value="Electrical Engineering">Electrical Engineering</option>
-                <option value="Chemical Engineering">Chemical Engineering</option>
-                <option value="Mechanical and Automation Engineering">Mechanical and Automation Engineering</option>
+                <option value="Computer Science Engineering">
+                  Computer Science Engineering
+                </option>
+                <option value="Information Technology Engineering">
+                  Information Technology Engineering
+                </option>
+                <option value="Computer Science and AI Engineering">
+                  Computer Science and AI Engineering
+                </option>
+                <option value="Electrical Engineering">
+                  Electrical Engineering
+                </option>
+                <option value="Chemical Engineering">
+                  Chemical Engineering
+                </option>
+                <option value="Mechanical and Automation Engineering">
+                  Mechanical and Automation Engineering
+                </option>
               </select>
             </label>
             <hr></hr>
@@ -173,17 +185,18 @@ export default class MenteeProfile extends Component {
               <p>Select domain: </p>
             </label>
             <br></br>
-            <div >
-              {selectedDomains.map(selectedDomains => (
-                <div key={selectedDomains.id} >
-                    <input
-                      type="checkbox"
-                      id="Open"
-                      name="domain"
-                      onChange={this.handleOptionChangeDomain}
-                    />
-                    <label htmlfor="Open"> {selectedDomains.label}</label>
-                    <br></br>
+            <div>
+              {domains.map((selectedDomains) => (
+                <div key={selectedDomains.id}>
+                  <input
+                    type="checkbox"
+                    id="Open"
+                    name="domain"
+                    value={selectedDomains.value}
+                    onChange={this.handleOptionChangeDomain}
+                  />
+                  <label htmlfor="Open"> {selectedDomains.label}</label>
+                  <br></br>
                 </div>
               ))}
             </div>
@@ -192,21 +205,22 @@ export default class MenteeProfile extends Component {
               <p>Select languages: </p>
             </label>
             <br></br>
-            
-            <div >
-              {selectedLanguages.map(selectedLanguages => (
-                <div key={selectedLanguages.id} >
-                    <input
-                      type="checkbox"
-                      id="male"
-                      name="lang"
-                      onChange={this.handleOptionChangeLang}
-                />
-                    <label htmlFor="male"> {selectedLanguages.value}</label>
+
+            <div>
+              {languages.map((selectedLanguages) => (
+                <div key={selectedLanguages.id}>
+                  <input
+                    type="checkbox"
+                    id="male"
+                    name="lang"
+                    value={selectedLanguages.value}
+                    onChange={this.handleOptionChangeLang}
+                  />
+                  <label htmlFor="male"> {selectedLanguages.value}</label>
                 </div>
               ))}
             </div>
-            
+
             <br />
 
             <hr></hr>
