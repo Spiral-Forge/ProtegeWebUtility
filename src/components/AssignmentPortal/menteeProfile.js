@@ -12,13 +12,13 @@ export default class MenteeProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedBranch: [],
+      selectedBranch: "None",
       selectedDomains: [],
       selectedLanguages: [],
       zeroMenteesFlag: false,
       domains: [],
       languages: [],
-      branches:[],
+      branches: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,17 +31,15 @@ export default class MenteeProfile extends Component {
       .collection("constants")
       .get()
       .then(async (querySnapshot) => {
-        querySnapshot.forEach((snap) =>{
-          if(snap.data().domains){
-            this.setState({ domains: snap.data().domains});
+        querySnapshot.forEach((snap) => {
+          if (snap.data().domains) {
+            this.setState({ domains: snap.data().domains });
+          } else if (snap.data().languages) {
+            this.setState({ languages: snap.data().languages });
+          } else if (snap.data().branches) {
+            this.setState({ branches: snap.data().branches });
           }
-          else if(snap.data().languages){
-            this.setState({ languages: snap.data().languages});
-          }
-          else if(snap.data().branches){
-            this.setState({branches: snap.data().branches})
-          }
-        }) 
+        });
       });
   };
 
@@ -59,6 +57,10 @@ export default class MenteeProfile extends Component {
     var domains = this.state.selectedDomains;
     var langs = this.state.selectedLanguages;
     var branch = this.state.selectedBranch;
+
+    console.log(domains);
+    console.log(langs);
+    console.log(branch);
     if (
       this.state.selectedDomains.length == 0 ||
       (this.state.selectedDomains.length == 1 &&
@@ -145,24 +147,22 @@ export default class MenteeProfile extends Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <p className="filterLabel">FILTERS:</p>
-            <label className="filterLabel">
-              Select branch:
-            </label>
+            <label className="filterLabel">Select branch:</label>
+            <div>
               <div>
-              {branches.map((selectedBranch) => (
-                <div>
-                   <select
-                name="selectedBranch"
-                value={this.state.selectedBranch}
-                onChange={this.handleChange}
-              >
-                <option value="None">{selectedBranch}</option>
+                <select
+                  name="selectedBranch"
+                  value={this.state.selectedBranch}
+                  onChange={this.handleChange}
+                >
+                  <option value="None">None</option>
+                  {branches.map((selectedBranch) => (
+                    <option value={selectedBranch}>{selectedBranch}</option>
+                  ))}
                 </select>
-                </div>
-              ))}
+              </div>
             </div>
 
-            
             <hr></hr>
             <label className="filterLabel">
               <p>Select domain: </p>
