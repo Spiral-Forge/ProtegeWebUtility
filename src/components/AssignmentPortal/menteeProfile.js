@@ -12,47 +12,39 @@ export default class MenteeProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedBranch: "None",
+      selectedBranch: [],
       selectedDomains: [],
       selectedLanguages: [],
       zeroMenteesFlag: false,
       domains: [],
       languages: [],
+      branches:[],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount = async () => {
-    this.getLanguageData();
-    this.getDomainData();
+    this.getData();
   };
-  getDomainData = async () => {
+  getData = async () => {
     await db
-      .collection("domains")
+      .collection("constants")
       .get()
       .then(async (querySnapshot) => {
-        var domainData = querySnapshot.docs.map((a) => {
-          const data = a.data();
-          const id = a.id;
-          return { id, ...data };
-        });
+        querySnapshot.forEach((snap) =>{
+          if(snap.data().domains){
+            this.setState({ domains: snap.data().domains});
+          }
+          else if(snap.data().languages){
+            this.setState({ languages: snap.data().languages});
+          }
+          else if(snap.data().branches){
+            this.setState({branches: snap.data().branches})
+          }
+        }) 
+      });
+  };
 
-        this.setState({ domains: domainData });
-      });
-  };
-  getLanguageData = async () => {
-    await db
-      .collection("languages")
-      .get()
-      .then(async (querySnapshot) => {
-        var langData = querySnapshot.docs.map((a) => {
-          const data = a.data();
-          const id = a.id;
-          return { id, ...data };
-        });
-        this.setState({ languages: langData });
-      });
-  };
   // _onSelect = event => {
   //   console.log(event.target.value)
   //   this.setState({
@@ -136,6 +128,7 @@ export default class MenteeProfile extends Component {
   render() {
     const { languages } = this.state;
     const { domains } = this.state;
+    const { branches } = this.state;
     return (
       <div
         style={{
@@ -154,32 +147,22 @@ export default class MenteeProfile extends Component {
             <p className="filterLabel">FILTERS:</p>
             <label className="filterLabel">
               Select branch:
-              <select
+            </label>
+              <div>
+              {branches.map((selectedBranch) => (
+                <div>
+                   <select
                 name="selectedBranch"
                 value={this.state.selectedBranch}
                 onChange={this.handleChange}
               >
-                <option value="None">None</option>
-                <option value="Computer Science Engineering">
-                  Computer Science Engineering
-                </option>
-                <option value="Information Technology Engineering">
-                  Information Technology Engineering
-                </option>
-                <option value="Computer Science and AI Engineering">
-                  Computer Science and AI Engineering
-                </option>
-                <option value="Electrical Engineering">
-                  Electrical Engineering
-                </option>
-                <option value="Chemical Engineering">
-                  Chemical Engineering
-                </option>
-                <option value="Mechanical and Automation Engineering">
-                  Mechanical and Automation Engineering
-                </option>
-              </select>
-            </label>
+                <option value="None">{selectedBranch}</option>
+                </select>
+                </div>
+              ))}
+            </div>
+
+            
             <hr></hr>
             <label className="filterLabel">
               <p>Select domain: </p>
