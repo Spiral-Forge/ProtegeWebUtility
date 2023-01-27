@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import UserCard from "../Common/userCard";
 import Dropdown from "react-dropdown";
+import firebase from "firebase";
+const db = firebase.firestore();
+
 //import { Dropdown } from 'semantic-ui-react'
 const options = ["one", "two", "three"];
 const defaultOption = options[0];
@@ -13,10 +16,32 @@ export default class MenteeProfile extends Component {
       selectedDomains: [],
       selectedLanguages: [],
       zeroMenteesFlag: false,
+      domains: [],
+      languages: [],
+      branches: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount = async () => {
+    this.getData();
+  };
+  getData = async () => {
+    await db
+      .collection("constants")
+      .get()
+      .then(async (querySnapshot) => {
+        querySnapshot.forEach((snap) => {
+          if (snap.data().domains) {
+            this.setState({ domains: snap.data().domains });
+          } else if (snap.data().languages) {
+            this.setState({ languages: snap.data().languages });
+          } else if (snap.data().branches) {
+            this.setState({ branches: snap.data().branches });
+          }
+        });
+      });
+  };
 
   // _onSelect = event => {
   //   console.log(event.target.value)
@@ -32,6 +57,10 @@ export default class MenteeProfile extends Component {
     var domains = this.state.selectedDomains;
     var langs = this.state.selectedLanguages;
     var branch = this.state.selectedBranch;
+
+    console.log(domains);
+    console.log(langs);
+    console.log(branch);
     if (
       this.state.selectedDomains.length == 0 ||
       (this.state.selectedDomains.length == 1 &&
@@ -49,12 +78,7 @@ export default class MenteeProfile extends Component {
     if (this.state.selectedBranch == "None") {
       branch = null;
     }
-    this.props.addFilters(
-      branch,
-      domains,
-      langs,
-      this.state.zeroMenteesFlag
-    );
+    this.props.addFilters(branch, domains, langs, this.state.zeroMenteesFlag);
   }
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -91,17 +115,22 @@ export default class MenteeProfile extends Component {
       );
       //this.state.selectedDomains.splice(value, 1);
     }
+
+    // console.log(this.state.selectedLanguages);
   };
 
   handleCheckboxes = (e) => {
     if (e.target.checked) {
       this.setState({ [e.target.name]: e.target.value });
-    }else{
+    } else {
       this.setState({ [e.target.name]: false });
     }
   };
 
   render() {
+    const { languages } = this.state;
+    const { domains } = this.state;
+    const { branches } = this.state;
     return (
       <div
         style={{
@@ -118,181 +147,63 @@ export default class MenteeProfile extends Component {
         <div>
           <form onSubmit={this.handleSubmit}>
             <p className="filterLabel">FILTERS:</p>
-            <label className="filterLabel">
-              Select branch:
-              <select
-                name="selectedBranch"
-                value={this.state.selectedBranch}
-                onChange={this.handleChange}
-              >
-                <option value="None">None</option>
-                <option value="Computer Science Engineering">Computer Science Engineering</option>
-                <option value="Information Technology Engineering">Information Technology Engineering</option>
-                <option value="Computer Science and AI Engineering">Computer Science and AI Engineering</option>
-                <option value="Electrical Engineering">Electrical Engineering</option>
-                <option value="Chemical Engineering">Chemical Engineering</option>
-                <option value="Mechanical and Automation Engineering">Mechanical and Automation Engineering</option>
-              </select>
-            </label>
+            <label className="filterLabel">Select branch:</label>
+            <div>
+              <div>
+                <select
+                  name="selectedBranch"
+                  value={this.state.selectedBranch}
+                  onChange={this.handleChange}
+                >
+                  <option value="None">None</option>
+                  {branches.map((selectedBranch) => (
+                    <option value={selectedBranch}>{selectedBranch}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <hr></hr>
             <label className="filterLabel">
               <p>Select domain: </p>
             </label>
             <br></br>
-            <input
-              type="checkbox"
-              id="Development"
-              name="domain"
-              value="Web Development"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Development"> Web Development</label>
-            <br />
-            <input
-              type="checkbox"
-              id="College"
-              name="domain"
-              value="App Development"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="College"> App Development</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Machine"
-              name="domain"
-              value="Machine Learning"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Machine"> Machine Learning</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Scholarship"
-              name="domain"
-              value="IOT"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Scholarship"> IOT</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Competitive"
-              name="domain"
-              value="Competitive Programming"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Competitive"> Competitive Coding</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="No Preference"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> No Preference</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="BlockChain"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> BlockChain</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="AR/VR"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> AR/VR</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="Game Development"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> Game Development</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="Cloud Engineering"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> Cloud Engineering</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="Cyber Security"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> Cyber Security</label>
-            <br />
-            <input
-              type="checkbox"
-              id="Open"
-              name="domain"
-              value="Open Source"
-              onChange={this.handleOptionChangeDomain}
-            />
-            <label htmlfor="Open"> Open Source</label>
-            <br />
+            <div>
+              {domains.map((selectedDomains) => (
+                <div key={selectedDomains.id}>
+                  <input
+                    type="checkbox"
+                    id="Open"
+                    name="domain"
+                    value={selectedDomains.value}
+                    onChange={this.handleOptionChangeDomain}
+                  />
+                  <label htmlfor="Open"> {selectedDomains.label}</label>
+                  <br></br>
+                </div>
+              ))}
+            </div>
             <hr></hr>
             <label className="filterLabel">
               <p>Select languages: </p>
             </label>
             <br></br>
-            <input
-              type="checkbox"
-              id="male"
-              name="lang"
-              value="C++"
-              onChange={this.handleOptionChangeLang}
-            />
-            <label htmlfor="male"> C++ </label>
-            <input
-              type="checkbox"
-              id="male"
-              name="lang"
-              value="C/C++"
-              onChange={this.handleOptionChangeLang}
-            />
-            <label htmlfor="male"> C/C++ </label>
-            <input
-              type="checkbox"
-              id="female"
-              name="lang"
-              value="Java"
-              onChange={this.handleOptionChangeLang}
-            />
-            <label htmlfor="female"> Java </label>
-            <br />
-            <input
-              type="checkbox"
-              id="other"
-              name="lang"
-              value="Python"
-              onChange={this.handleOptionChangeLang}
-            />
-            <label htmlfor="other"> Python </label>
-            <input
-              type="checkbox"
-              id="Open"
-              name="lang"
-              value="No Preference"
-              onChange={this.handleOptionChangeLang}
-            />
-            <label htmlfor="Open"> No Preference</label>
+
+            <div>
+              {languages.map((selectedLanguages) => (
+                <div key={selectedLanguages.id}>
+                  <input
+                    type="checkbox"
+                    id="male"
+                    name="lang"
+                    value={selectedLanguages.value}
+                    onChange={this.handleOptionChangeLang}
+                  />
+                  <label htmlFor="male"> {selectedLanguages.value}</label>
+                </div>
+              ))}
+            </div>
+
             <br />
 
             <hr></hr>
