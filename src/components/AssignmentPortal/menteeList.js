@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { applyZeroMenteeFilter, applyBranchFilter } from "./filtering";
+import firebase from "../Firebase/firebase";
+
+const db = firebase.firestore();
 
 export default class MenteeList extends Component {
   constructor(props) {
@@ -8,8 +11,27 @@ export default class MenteeList extends Component {
       unassignedFlag: false,
       branchSelect: "None",
       filteredList: this.props.menteeList,
+      branches:[],
     };
   }
+
+  componentDidMount = async () => {
+    this.getData();
+  };
+
+  getData = async () => {
+    await db
+      .collection("constants")
+      .get()
+      .then(async (querySnapshot) => {
+        querySnapshot.forEach((snap) => {
+          if (snap.data().branches) {
+            this.setState({ branches: snap.data().branches });
+          }
+        });
+      });
+  };
+
   componentWillReceiveProps() {
     this.setState({ filteredList: this.props.menteeList });
   }
@@ -40,6 +62,8 @@ export default class MenteeList extends Component {
   };
 
   render() {
+    const { branches } = this.state;
+
     console.log(this.props.menteeList);
     return (
       <div
@@ -54,19 +78,20 @@ export default class MenteeList extends Component {
           <p className="filterLabel">FILTERS:</p>
           <label className="filterLabel">
             Select branch:
-            <select
-              name="branchSelect"
-              value={this.state.branchSelect}
-              onChange={this.handleChange}
-            >
-              <option value="None">None</option>
-              <option value="Computer Science Engineering">Computer Science Engineering</option>
-              <option value="Information Technology Engineering">Information Technology Engineering</option>
-              <option value="Computer Science and AI Engineering">Computer Science and AI Engineering</option>
-              <option value="Electrical Engineering">Electrical Engineering</option>
-              <option value="Chemical Engineering">Chemical Engineering</option>
-              <option value="Mechanical and Automation Engineering">Mechanical and Automation Engineering</option>
-            </select>
+            <div>
+              <div>
+                <select
+                  name="branchSelect"
+                  value={this.state.branchSelect}
+                  onChange={this.handleChange}
+                >
+                  <option value="None">None</option>
+                  {branches.map((selectedBranch) => (
+                    <option value={selectedBranch}>{selectedBranch}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           </label>
           <br />
           <input
