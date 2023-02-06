@@ -6,7 +6,6 @@ const db = firebase.firestore();
 
 //import { Dropdown } from 'semantic-ui-react'
 const options = ["one", "two", "three"];
-const defaultOption = options[0];
 
 export default class MenteeProfile extends Component {
   constructor(props) {
