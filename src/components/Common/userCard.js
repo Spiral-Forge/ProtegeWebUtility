@@ -12,6 +12,7 @@ export default function UserCard({
   setEdit,
 }) {
   const [error, setError] = useState("");
+  console.log(user);
 
   const viewPeer = async (id) => {
     setError("");
@@ -54,16 +55,21 @@ export default function UserCard({
       removePeerId(id);
       return;
     }
+
     const uIdx = user.peerId.indexOf(id);
     const pIdx = peer.peerId.indexOf(user.id);
+
+    console.log("debug " + pIdx);
+
+    if (pIdx != -1) {
+      const uId = peer.peerId.splice(pIdx, 1)[0];
+    }
     const pId = user.peerId.splice(uIdx, 1)[0];
-    const uId = peer.peerId.splice(pIdx, 1)[0];
-    delete user.id;
-    
-    await db.collection("users").doc(uId).update(user);
+
+    await db.collection("users").doc(user.id).update(user);
     await db.collection("users").doc(pId).update(peer);
 
-    const res = await peerData(uId);
+    const res = await peerData(user.id);
     setSearchedUserList([res]);
     setSearchedPeerList([]);
   };

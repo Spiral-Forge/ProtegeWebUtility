@@ -33,7 +33,7 @@ export default class AssignmentPage extends Component {
     this.getMenteeList();
     this.getMentorList();
   }
-  
+
   getMenteeList = async () => {
     await db
       .collection("users")
@@ -48,8 +48,6 @@ export default class AssignmentPage extends Component {
         this.setState({ menteeList: mydata });
       });
   };
-
-
 
   getMentorList = async () => {
     await db
@@ -69,6 +67,7 @@ export default class AssignmentPage extends Component {
 
   saveAssignment = async (mentor) => {
     var menteePeerIDCopy = this.state.selectedMentee.peerId.slice();
+
     menteePeerIDCopy.push(mentor.id);
     //console.log(peerIdCopy)
     const currentMenteeWithoutID = (({ id, ...o }) => o)(
@@ -130,12 +129,7 @@ export default class AssignmentPage extends Component {
     //console.log(item)
     this.setState({ selectedMentor: item, mentorProfileOpened: true });
   };
-  addFilters = (
-    branchFilter,
-    domainFilter,
-    langFilter,
-    zeroMenteeFilter
-  ) => {
+  addFilters = (branchFilter, domainFilter, langFilter, zeroMenteeFilter) => {
     console.log(
       "data recieved in parent page ",
       branchFilter,
